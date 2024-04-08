@@ -1,10 +1,13 @@
 package com.msr.agenceloc.client;
 
 import com.msr.agenceloc.adresse.Adresse;
+import com.msr.agenceloc.embeddable.ClientReserveVehicule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+
+import java.util.List;
 
 @Entity
 public class ClientUser {
@@ -40,5 +43,11 @@ public class ClientUser {
     )
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
+
+    @OneToMany(mappedBy = "clientUser",
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
+    )
+    List<ClientReserveVehicule> clientReserveVehicules;
 
 }

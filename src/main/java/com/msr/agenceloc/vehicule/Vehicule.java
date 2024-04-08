@@ -1,6 +1,7 @@
 package com.msr.agenceloc.vehicule;
 
 import com.msr.agenceloc.embeddable.AgenceFourniVehicule;
+import com.msr.agenceloc.embeddable.ClientReserveVehicule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -52,5 +53,12 @@ public class Vehicule {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
     List<AgenceFourniVehicule> agenceFourniVehicules;
+
+    @OneToMany(
+            mappedBy = "vehicule",
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
+    )
+    List<ClientReserveVehicule> clientReserveVehicules;
 
 }

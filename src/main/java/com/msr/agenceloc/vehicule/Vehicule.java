@@ -45,7 +45,7 @@ public class Vehicule {
 
     private String photo;
 
-    @Max(45)
+    @Min(45)
     private int prixJournalier;
 
     @OneToMany(mappedBy = "vehicule",

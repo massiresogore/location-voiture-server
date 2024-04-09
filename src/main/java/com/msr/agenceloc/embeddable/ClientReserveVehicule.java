@@ -23,7 +23,7 @@ public class ClientReserveVehicule {
     @MapsId("clientUserId") //in ClientReserveVehiculeKey classe attribut 'clientUserId'
     @ManyToOne
     @JoinColumn(name = "client_user_id" )
-    ClientUser ClientUser;
+    ClientUser clientUser;
 
     @MapsId("vehiculeId")
     @ManyToOne

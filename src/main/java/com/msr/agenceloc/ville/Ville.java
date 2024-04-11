@@ -27,24 +27,4 @@ public class Ville {
     @Size(min = 2, max = 30)
     private String nom;
 
-    @OneToMany(mappedBy = "ville",
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
-    )
-    private List<Adresse> adresses;
-
-    public void addAdress(Adresse adresse){
-        if(this.adresses== null){
-
-            this.adresses = new ArrayList<>();
-        }
-        this.adresses.add(adresse);
-        adresse.setVille(this);
-    }
-
-    public  void removeAdresse(Adresse adresse){
-
-        this.adresses.remove(adresse);
-        adresse.setVille(null);
-    }
 }

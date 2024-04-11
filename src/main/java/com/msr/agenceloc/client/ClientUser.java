@@ -6,8 +6,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 
 @Entity
 public class ClientUser {
@@ -16,11 +20,11 @@ public class ClientUser {
     @JoinColumn(name = "client_user_id")
     private Long clientUserId;
     @Pattern(regexp = "^[a-z]{6,8}$",
-            message = "prenom must be of 6 to 12 length with no special characters")
+            message = "prenom must be of 6 to 8 length with no special characters")
     @NotNull
     private String nom;
     @Pattern(regexp = "^[a-z]{2,30}$",
-            message = "prenom must be of 6 to 12 length with no special characters")
+            message = "prenom must be of 6 to 30 length with no special characters")
     @NotNull
     private String prenom;
 
@@ -39,7 +43,7 @@ public class ClientUser {
 
     @ManyToOne(
             fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
+            cascade = {CascadeType.ALL}
     )
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
@@ -50,4 +54,102 @@ public class ClientUser {
     )
     List<ClientReserveVehicule> clientReserveVehicules;
 
+    public ClientUser() {
+    }
+
+    public ClientUser(Long clientUserId,
+                      String nom,
+                      String prenom,
+                      String role,
+                      String email,
+                      String password,
+                      boolean isBooked,
+                      Adresse adresse) {
+        this.clientUserId = clientUserId;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.email = email;
+        this.password = password;
+        this.isBooked = isBooked;
+        this.adresse = adresse;
+    }
+
+    public Long getClientUserId() {
+        return clientUserId;
+    }
+
+    public void setClientUserId(Long clientUserId) {
+        this.clientUserId = clientUserId;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientUser{" +
+                "clientUserId=" + clientUserId +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isBooked=" + isBooked +
+                ", adresse=" + adresse +
+                '}';
+    }
 }

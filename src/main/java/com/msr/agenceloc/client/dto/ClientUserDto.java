@@ -4,7 +4,7 @@ import com.msr.agenceloc.adresse.Adresse;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record ClienUserDto(
+public record ClientUserDto(
        Long clientUserId,
        @NotNull
        String nom,

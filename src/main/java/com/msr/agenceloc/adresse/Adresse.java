@@ -23,14 +23,13 @@ public class Adresse {
     private String nom;
 
     @NotNull
-    @NotBlank
     private int numero;
 
     @NotNull
     @JoinColumn(name = "code_postal")
     private int cp;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "ville_id", nullable = false)
     private Ville ville;
 

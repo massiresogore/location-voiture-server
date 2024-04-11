@@ -2,17 +2,21 @@ package com.msr.agenceloc.system.exception;
 
 import com.msr.agenceloc.system.Result;
 import com.msr.agenceloc.system.StatusCode;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(ObjectNotFoundException.class)
@@ -21,6 +25,17 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.NOT_FOUND, exception.getMessage());
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    Result handleObjectNotFoundException (DataIntegrityViolationException exception){
+        return new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, exception.getMessage());
+    }
+  /*  @ExceptionHandler(TransactionSystemException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    Result handleObjectNotFoundException (TransactionSystemException exception){
+        return new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, exception.getLocalizedMessage());
+    }
+*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     Result handleValidationException(MethodArgumentNotValidException exception){

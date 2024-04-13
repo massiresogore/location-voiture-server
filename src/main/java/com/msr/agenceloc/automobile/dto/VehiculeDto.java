@@ -1,4 +1,4 @@
-package com.msr.agenceloc.vehicule.dto;
+package com.msr.agenceloc.automobile.dto;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Max;

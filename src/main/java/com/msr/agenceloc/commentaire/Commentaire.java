@@ -1,7 +1,7 @@
 package com.msr.agenceloc.commentaire;
 
+import com.msr.agenceloc.automobile.Vehicule;
 import com.msr.agenceloc.client.ClientUser;
-import com.msr.agenceloc.vehicule.Vehicule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

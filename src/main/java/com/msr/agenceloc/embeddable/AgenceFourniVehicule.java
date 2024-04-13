@@ -1,7 +1,7 @@
 package com.msr.agenceloc.embeddable;
 
 import com.msr.agenceloc.agence.Agence;
-import com.msr.agenceloc.vehicule.Vehicule;
+import com.msr.agenceloc.automobile.Vehicule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

@@ -74,3 +74,12 @@ la suppression, la mise à jour, et la consultation.
 et modifier. Appliquez le même principe pour l’entité AGENCE.
 4. Notez que pour les USER, les modifications se limitent uniquement au prénom, au nom et au rôle.
 
+- choix de conception
+  - je préfère utiliser l'approche d'une classe abstraite avec 
+    ces sous classe comme entité persistante. pour que mes attributs ne soit pas nullable 
+  //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+  - l'approche de classe mère comme entité persistante, ne me convient pas
+    car les attributs de ses sous classe non crée sera nullable.
+    //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+

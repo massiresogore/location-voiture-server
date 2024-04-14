@@ -26,8 +26,14 @@ public abstract class Automobile {
     @Min(45)
     private int prixJournalier;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isBooked;
+
+    private String photo;
+
 
     @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "client_user_id")
     private ClientUser client;
 
 
@@ -35,6 +41,7 @@ public abstract class Automobile {
             fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
+
     List<AgenceFourniVehicule> agenceFourniVehicules;
 
     @OneToMany(
@@ -48,15 +55,17 @@ public abstract class Automobile {
 
     }
 
-    public Automobile(Long id, String couleur, int poids, int prixJournalier, ClientUser client) {
+    public Automobile(Long id, String couleur, int poids, int prixJournalier, boolean isBooked, String photo, ClientUser client) {
         this.id = id;
         this.couleur = couleur;
         this.poids = poids;
         this.prixJournalier = prixJournalier;
+        this.isBooked = isBooked;
+        this.photo = photo;
         this.client = client;
     }
 
-    /*   // Méthodes abstraites
+  /*   // Méthodes abstraites
     public abstract void demarrer();
 
     public abstract void arreter();*/

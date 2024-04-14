@@ -19,8 +19,16 @@ public class Vehicule extends Automobile  {
 
     }
 
-    public Vehicule(Long id, String couleur, int poids, int prixJournalier, ClientUser client, int nbRoues, int nbrPorte) {
-        super(id, couleur, poids, prixJournalier, client);
+    public Vehicule(Long id, String couleur,
+                    int poids,
+                    int prixJournalier,
+                    boolean isBooked,
+                    String photo,
+                    ClientUser client,
+                    int nbRoues,
+                    int nbrPorte
+    ) {
+        super(id, couleur, poids, prixJournalier, isBooked, photo, client);
         this.nbRoues = nbRoues;
         this.nbrPorte = nbrPorte;
     }

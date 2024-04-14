@@ -12,8 +12,16 @@ public class Scooter extends Automobile {
 
     }
 
-    public Scooter(Long id, String couleur, int poids, int prixJournalier, ClientUser client, int cylindre) {
-        super(id, couleur, poids, prixJournalier, client);
+    public Scooter(Long id,
+                   String couleur,
+                   int poids,
+                   int prixJournalier,
+                   boolean isBooked,
+                   String photo,
+                   ClientUser client,
+                   int cylindre
+    ) {
+        super(id, couleur, poids, prixJournalier, isBooked, photo, client);
         this.cylindre = cylindre;
     }
 }

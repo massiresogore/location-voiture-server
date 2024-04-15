@@ -18,6 +18,45 @@ public class AgencelocApplication {
 
 	}
 
-	 
+/*
+	@Bean
+	 public CommandLineRunner addVeh(
+			 AgenceRepository agenceRepository,
+			 AutomobilRepository automobilRepository
+									 ){
+		 Agence afrimeta = agenceRepository.findById(Long.parseLong(String.valueOf(1))).get();
+
+		 //créé véhicule
+
+
+
+
+		*/
+/*Automobile veicule = new Vehicule(
+				null,
+				"rouge",
+				20,
+				46,
+				false,
+
+		);
+		Automobile vehicule = new Vehicule(
+				null,
+				automobile.couleur(),
+				automobile.poids(),
+				automobile.prixJournalier(),
+				automobile.isBooked(),
+				client,
+				automobile.nbRoues(),
+				automobile.nbrPorte()
+		);*//*
+
+
+		return runner ->{
+			System.out.println();
+
+		};
+	 }
+*/
 
 }

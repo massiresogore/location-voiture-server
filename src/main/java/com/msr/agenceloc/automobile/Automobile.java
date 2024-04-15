@@ -1,7 +1,6 @@
 package com.msr.agenceloc.automobile;
 
-import com.msr.agenceloc.client.ClientUser;
-import com.msr.agenceloc.embeddable.AgenceFourniVehicule;
+import com.msr.agenceloc.agence.Agence;
 import com.msr.agenceloc.embeddable.ClientReserveVehicule;
 import com.msr.agenceloc.image.FileData;
 import jakarta.persistence.*;
@@ -21,32 +20,25 @@ public abstract   class Automobile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    protected Long id;
 
     @NotNull
-    private String couleur;
+    protected String couleur;
     @Min(1)
-    private int poids;
+    protected int poids;
     @Min(45)
-    private int prixJournalier;
+    protected int prixJournalier;
 
     @Column(columnDefinition = "boolean default false")
-    private boolean isBooked;
+    protected boolean isBooked;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "client_user_id")
-    private ClientUser client;
+    protected int stock;
+
 
     @OneToMany(mappedBy = "automobile")
-    private List<FileData> fileDatas;
+    protected List<FileData> fileDatas;
 
 
-    @OneToMany(mappedBy = "vehicule",
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
-    )
-
-    List<AgenceFourniVehicule> agenceFourniVehicules;
 
     @OneToMany(
             mappedBy = "vehicule",
@@ -55,25 +47,24 @@ public abstract   class Automobile {
     )
     List<ClientReserveVehicule> clientReserveVehicules;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "agence_id")
+    private Agence agence;
+
     public Automobile() {
 
     }
 
-    public Automobile(Long id, String couleur, int poids, int prixJournalier, boolean isBooked, ClientUser client) {
+    public Automobile(Long id, String couleur, int poids, int prixJournalier, boolean isBooked, int stock, Agence agence) {
         this.id = id;
         this.couleur = couleur;
         this.poids = poids;
         this.prixJournalier = prixJournalier;
         this.isBooked = isBooked;
-        this.client = client;
+        this.stock = stock;
+        this.agence = agence;
     }
 
-/*   // Méthodes abstraites
-    public abstract void demarrer();
-
-    public abstract void arreter();*/
-
-    //Add Image
 
     public void addImage(FileData fileData){
         if(this.fileDatas == null){
@@ -83,7 +74,6 @@ public abstract   class Automobile {
         this.fileDatas.add(fileData);
         fileData.setAutomobile(this);
     }
-
 
 
     public Long getId() {
@@ -118,12 +108,26 @@ public abstract   class Automobile {
         this.prixJournalier = prixJournalier;
     }
 
-    public ClientUser getClient() {
-        return client;
+    public Agence getAgence() {
+        return agence;
     }
 
-    public void setClient(ClientUser client) {
-        this.client = client;
+    public void setAgence(Agence agence) {
+        this.agence = agence;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+
+        if(this.isBooked){
+            this.stock = stock - 1;
+        }else {
+        this.stock = stock;
+        }
+
     }
 
     @Override
@@ -134,7 +138,6 @@ public abstract   class Automobile {
                 ", poids=" + poids +
                 ", prixJournalier=" + prixJournalier +
                 ", isBooked=" + isBooked +
-                ", client=" + client +
                 '}';
     }
 }

@@ -83,3 +83,6 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.
     car les attributs de ses sous classe non crée sera nullable.
     //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
+
+- lien polimorphysme
+  https://www.javatpoint.com/hibernate-inheritance-mapping-tutorial#

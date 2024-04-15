@@ -25,9 +25,9 @@ public record AutomobileDto(
                 @Min(45)
                 int prixJournalier,
 
-                @NotNull
-                Long clientId,
-                int nbRoues
+                int nbRoues,
+                int stock,
+                Long agenceId
 ){
 }
 

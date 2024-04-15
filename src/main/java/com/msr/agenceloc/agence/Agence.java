@@ -1,18 +1,17 @@
 package com.msr.agenceloc.agence;
 
 import com.msr.agenceloc.adresse.Adresse;
-import com.msr.agenceloc.embeddable.AgenceFourniVehicule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -33,7 +32,6 @@ public class Agence {
     @NotBlank
     private String tel;
 
-
     @ManyToOne(
             fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
@@ -41,9 +39,27 @@ public class Agence {
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
 
-    @OneToMany(mappedBy = "agence",
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
-    )
-    List<AgenceFourniVehicule> agenceFourniVehicules;
+
+   /* @OneToMany(mappedBy = "agence")
+    private List<Automobile> automobiles;*/
+
+   /* public void addAutomobile(Automobile automobile){
+        if (this.automobiles == null)
+        {
+            this.automobiles = new ArrayList<>();
+        }
+
+        this.automobiles.add(automobile);
+        automobile.setAgence(this);
+    }*/
+
+    @Override
+    public String toString() {
+        return "Agence{" +
+                "agenceId=" + agenceId +
+                ", nom='" + nom + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
 }

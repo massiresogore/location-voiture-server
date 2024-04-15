@@ -1,7 +1,8 @@
 package com.msr.agenceloc.automobile;
 
+import com.msr.agenceloc.agence.Agence;
+import com.msr.agenceloc.agence.AgenceRepository;
 import com.msr.agenceloc.automobile.dto.AutomobileDto;
-import com.msr.agenceloc.client.ClientUser;
 import com.msr.agenceloc.client.ClientUserRepository;
 import com.msr.agenceloc.image.StorageService;
 import com.msr.agenceloc.system.Result;
@@ -27,13 +28,15 @@ public class AutomobileController {
     private final StorageService service;
     private final AutomobilRepository automobilRepository;
     private final ClientUserRepository clientUserRepository;
+    private final AgenceRepository agenceRepository;
 
     public AutomobileController(StorageService service,
                                 AutomobilRepository automobilRepository,
-                                ClientUserRepository clientUserRepository) {
+                                ClientUserRepository clientUserRepository, AgenceRepository agenceRepository) {
         this.service = service;
         this.automobilRepository = automobilRepository;
         this.clientUserRepository = clientUserRepository;
+        this.agenceRepository = agenceRepository;
     }
 
     @PostMapping("/{automobileId}/image")
@@ -76,31 +79,34 @@ public class AutomobileController {
     @PostMapping
     public Result addVehicule(@Valid @RequestBody AutomobileDto automobile)
     {
-      //Retrive Client
-        ClientUser client = clientUserRepository.findById(automobile.clientId())
-                .orElseThrow(()-> new  ObjectNotFoundException("client",automobile.clientId()));
+
+
+        Agence agence = agenceRepository.findById(automobile.agenceId()).orElseThrow(
+                ()-> new ObjectNotFoundException("agence", automobile.agenceId())
+        );
 
         //create scooter
-        Result scooterResult = this.scooterResponse(automobile, client);
+        Result scooterResult = this.scooterResponse(automobile, agence);
         if (scooterResult != null) return scooterResult;
 
         //Create Camion
-        Result camionResult = this.camionResponse(automobile,client);
+        Result camionResult = this.camionResponse(automobile, agence);
         if(camionResult!= null) return camionResult;
 
         //create vehicule
-        return this.vehiculeResult(automobile, client);
+        return this.vehiculeResult(automobile, agence);
 
     }
 
-    private Result vehiculeResult(AutomobileDto automobile, ClientUser client) {
+    private Result vehiculeResult(AutomobileDto automobile, Agence agence) {
         Automobile vehicule = new Vehicule(
                 null,
                 automobile.couleur(),
                 automobile.poids(),
                 automobile.prixJournalier(),
                 automobile.isBooked(),
-                client,
+                automobile.stock(),
+                agence,
                 automobile.nbRoues(),
                 automobile.nbrPorte()
         );
@@ -110,7 +116,7 @@ public class AutomobileController {
         );
     }
 
-    private Result scooterResponse(AutomobileDto automobile, ClientUser client) {
+    private Result scooterResponse(AutomobileDto automobile,Agence agence) {
         if(automobile.cylindre() != 0){
 
             Automobile scooter = new Scooter(
@@ -119,7 +125,8 @@ public class AutomobileController {
                     automobile.poids(),
                     automobile.prixJournalier(),
                     automobile.isBooked(),
-                    client,
+                    automobile.stock(),
+                    agence,
                     automobile.cylindre()
             );
 
@@ -131,8 +138,8 @@ public class AutomobileController {
         return null;
     }
 
-    private Result camionResponse(AutomobileDto automobile, ClientUser client) {
-        if(automobile.longueur() != 0){
+    private Result camionResponse(AutomobileDto automobile, Agence agence) {
+        if(automobile.longueur() != 0 ){
 
             Automobile camion = new Camion(
                     null,
@@ -140,7 +147,8 @@ public class AutomobileController {
                     automobile.poids(),
                     automobile.prixJournalier(),
                     automobile.isBooked(),
-                    client,
+                    automobile.stock(),
+                    agence,
                     automobile.longueur()
             );
 

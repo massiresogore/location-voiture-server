@@ -1,7 +1,8 @@
 package com.msr.agenceloc.automobile;
 
-import com.msr.agenceloc.client.ClientUser;
-import jakarta.persistence.*;
+import com.msr.agenceloc.agence.Agence;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
@@ -20,16 +21,11 @@ public class Vehicule extends Automobile  {
 
     }
 
-    public Vehicule(Long id,
-                    String couleur,
-                    int poids,
-                    int prixJournalier,
-                    boolean isBooked,
-                    ClientUser client,
-                    int nbRoues,
-                    int nbrPorte
-    ) {
-        super(id, couleur, poids, prixJournalier, isBooked, client);
+    public Vehicule(Long id, String couleur, int poids, int prixJournalier,
+                    boolean isBooked, int stock,
+                    Agence agence,
+                    int nbRoues, int nbrPorte) {
+        super(id, couleur, poids, prixJournalier, isBooked, stock, agence);
         this.nbRoues = nbRoues;
         this.nbrPorte = nbrPorte;
     }
@@ -49,6 +45,7 @@ public class Vehicule extends Automobile  {
     public void setNbrPorte(int nbrPorte) {
         this.nbrPorte = nbrPorte;
     }
+
 
     @Override
     public String toString() {

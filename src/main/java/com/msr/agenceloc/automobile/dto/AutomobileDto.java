@@ -1,12 +1,10 @@
 package com.msr.agenceloc.automobile.dto;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 
-public record VehiculeDto (
+public record AutomobileDto(
 
                 Long vehiculeId,
                 @NotNull
@@ -15,21 +13,21 @@ public record VehiculeDto (
                 @Min(1)
                  int poids,
 
-                @JoinColumn(name = "nombre_de_porte")
-                @Min(2)
-                @Max(4)
                  int nbrPorte,
 
-                @Min(1)
-                 int cylindre,
+                int cylindre,
 
-                @Min(1)
+
                  int longueur,
 
                  boolean isBooked,
-                 String photo,
 
-                @Max(45)
-                int prixJournalier
+                @Min(45)
+                int prixJournalier,
+
+                @NotNull
+                Long clientId,
+                int nbRoues
 ){
 }
+

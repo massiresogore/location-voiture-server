@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 
 @Entity
 public class Vehicule extends Automobile  {
+
     private int nbRoues;
 
     @JoinColumn(name = "nombre_de_porte")
@@ -19,16 +20,16 @@ public class Vehicule extends Automobile  {
 
     }
 
-    public Vehicule(Long id, String couleur,
+    public Vehicule(Long id,
+                    String couleur,
                     int poids,
                     int prixJournalier,
                     boolean isBooked,
-                    String photo,
                     ClientUser client,
                     int nbRoues,
                     int nbrPorte
     ) {
-        super(id, couleur, poids, prixJournalier, isBooked, photo, client);
+        super(id, couleur, poids, prixJournalier, isBooked, client);
         this.nbRoues = nbRoues;
         this.nbrPorte = nbrPorte;
     }
@@ -49,4 +50,11 @@ public class Vehicule extends Automobile  {
         this.nbrPorte = nbrPorte;
     }
 
+    @Override
+    public String toString() {
+        return "Vehicule{" +
+                "nbRoues=" + nbRoues +
+                ", nbrPorte=" + nbrPorte +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
-package com.msr.agenceloc.automobile;
+package com.msr.agenceloc.automobile.subclasse;
 
 import com.msr.agenceloc.agence.Agence;
+import com.msr.agenceloc.automobile.Automobile;
 import jakarta.persistence.Entity;
 
 @Entity

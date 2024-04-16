@@ -1,5 +1,6 @@
-package com.msr.agenceloc.automobile;
+package com.msr.agenceloc.automobile.repositories;
 
+import com.msr.agenceloc.automobile.Automobile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

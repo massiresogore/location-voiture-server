@@ -1,18 +1,18 @@
-package com.msr.agenceloc.automobile;
+package com.msr.agenceloc.automobile.subclasse;
 
 import com.msr.agenceloc.agence.Agence;
+import com.msr.agenceloc.automobile.Automobile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 
 @Entity
-public class Vehicule extends Automobile  {
+public class Vehicule extends Automobile {
 
     private int nbRoues;
 
     @JoinColumn(name = "nombre_de_porte")
-    @Min(2)
+    //@Min(2)
     @Max(4)
     private int nbrPorte;
 

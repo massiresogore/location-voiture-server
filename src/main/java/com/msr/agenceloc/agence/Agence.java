@@ -40,19 +40,6 @@ public class Agence {
     private Adresse adresse;
 
 
-   /* @OneToMany(mappedBy = "agence")
-    private List<Automobile> automobiles;*/
-
-   /* public void addAutomobile(Automobile automobile){
-        if (this.automobiles == null)
-        {
-            this.automobiles = new ArrayList<>();
-        }
-
-        this.automobiles.add(automobile);
-        automobile.setAgence(this);
-    }*/
-
     @Override
     public String toString() {
         return "Agence{" +
@@ -63,3 +50,21 @@ public class Agence {
                 '}';
     }
 }
+
+/*
+{
+        "password": "Ma1#legende",
+        "enable": true,
+        "role":"user",
+        "nom": "eyenga",
+        "prenom": "sogore",
+        "email": "eyenga@gmail.com",
+        "adresse": {
+        "cp":"87990",
+        "nom": "eyenga",
+        "numero": "90",
+        "ville": {
+        "nom": "Melun"
+        }
+        }
+        }*/

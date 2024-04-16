@@ -2,8 +2,17 @@ package com.msr.agenceloc.automobile;
 
 import com.msr.agenceloc.agence.Agence;
 import com.msr.agenceloc.agence.AgenceRepository;
+import com.msr.agenceloc.agenceInformationDto.AgenceInformationDto;
 import com.msr.agenceloc.automobile.dto.AutomobileDto;
+import com.msr.agenceloc.automobile.repositories.AutomobilRepository;
+import com.msr.agenceloc.automobile.repositories.CamionRepository;
+import com.msr.agenceloc.automobile.repositories.ScooterRepository;
+import com.msr.agenceloc.automobile.repositories.VehiculeRepository;
+import com.msr.agenceloc.automobile.subclasse.Camion;
+import com.msr.agenceloc.automobile.subclasse.Scooter;
+import com.msr.agenceloc.automobile.subclasse.Vehicule;
 import com.msr.agenceloc.client.ClientUserRepository;
+import com.msr.agenceloc.embeddable.ReservationRepository;
 import com.msr.agenceloc.image.StorageService;
 import com.msr.agenceloc.system.Result;
 import com.msr.agenceloc.system.StatusCode;
@@ -28,15 +37,23 @@ public class AutomobileController {
     private final StorageService service;
     private final AutomobilRepository automobilRepository;
     private final ClientUserRepository clientUserRepository;
+    private final ScooterRepository scooterRepository;
+    private final VehiculeRepository vehiculeRepository;
+    private final CamionRepository camionRepository;
     private final AgenceRepository agenceRepository;
+    private final ReservationRepository reservationRepository;
 
     public AutomobileController(StorageService service,
                                 AutomobilRepository automobilRepository,
-                                ClientUserRepository clientUserRepository, AgenceRepository agenceRepository) {
+                                ClientUserRepository clientUserRepository, ScooterRepository scooterRepository, VehiculeRepository vehiculeRepository, CamionRepository camionRepository, AgenceRepository agenceRepository, ReservationRepository reservationRepository) {
         this.service = service;
         this.automobilRepository = automobilRepository;
         this.clientUserRepository = clientUserRepository;
+        this.scooterRepository = scooterRepository;
+        this.vehiculeRepository = vehiculeRepository;
+        this.camionRepository = camionRepository;
         this.agenceRepository = agenceRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @PostMapping("/{automobileId}/image")
@@ -75,11 +92,41 @@ public class AutomobileController {
                 .body(base64Photos);
     }
 
+    @GetMapping("/vehicules")
+    public Result getVehicules()
+    {
+        return new Result(true, StatusCode.SUCCESS, "all vehicule success",
+                this.vehiculeRepository.findAll()
+        );
+    }
+    @GetMapping("/scooters")
+    public Result getScooters()
+    {
+        return new Result(true, StatusCode.SUCCESS, "all scooter success",
+                this.scooterRepository.findAll()
+        );
+    }
+    @GetMapping("/camions")
+    public Result getCamions()
+    {
+        int total = this.camionRepository.findTotalPrixCamion();
+        System.out.println(total);
+        return new Result(true, StatusCode.SUCCESS, "all camion success",
+                this.camionRepository.findAll()
+        );
+    }
+    @GetMapping("/reservations")
+    public Result getReservations()
+    {
+        return new Result(true, StatusCode.SUCCESS, "all reservation success",
+                this.reservationRepository.findAll()
+        );
+    }
+
 
     @PostMapping
     public Result addVehicule(@Valid @RequestBody AutomobileDto automobile)
     {
-
 
         Agence agence = agenceRepository.findById(automobile.agenceId()).orElseThrow(
                 ()-> new ObjectNotFoundException("agence", automobile.agenceId())
@@ -96,6 +143,18 @@ public class AutomobileController {
         //create vehicule
         return this.vehiculeResult(automobile, agence);
 
+    }
+
+    @GetMapping("/informations")
+    public Result information()
+    {
+
+        return  new Result(
+                true,
+                StatusCode.SUCCESS,
+                "Toutes les informations de l'application",
+               this.getInfoProgramme()
+        );
     }
 
     private Result vehiculeResult(AutomobileDto automobile, Agence agence) {
@@ -131,7 +190,7 @@ public class AutomobileController {
             );
 
             Scooter savedScooter = (Scooter) this.automobilRepository.save(scooter);
-            return new Result(true, StatusCode.SUCCESS, "Create vehicule success",
+            return new Result(true, StatusCode.SUCCESS, "Create scooter success",
                     savedScooter
             );
         }
@@ -161,6 +220,50 @@ public class AutomobileController {
     }
 
 
+    public AgenceInformationDto getInfoProgramme()
+    {
+        int totalAgence = this.agenceRepository.findAll().size();
+
+        //total Véhicule
+        int totalVehicule = this.vehiculeRepository.findAll().size();
+
+        //total Camions
+        int totalCamion = this.camionRepository.findAll().size();
+
+        //total Scooter
+        int totalScooter = this.scooterRepository.findAll().size();
+
+        //total client
+        int totalClient = this.clientUserRepository.findAll().size();
+
+        //total reservation
+        int totalReservation = this.reservationRepository.findAll().size();
+
+        //total priJournalier voiture,camion,
+        int totalPriJournalierVehicule = this.vehiculeRepository.findTotalPrixVehicule();
+        int totalPrixJournalierCamion = this.camionRepository.findTotalPrixCamion();
+        //Total prix VoitureCamion
+        int totalPrixVoitureCamionQuatreRoues = totalPriJournalierVehicule + totalPrixJournalierCamion;
+
+        //Total prix journalier scooter
+        int totalPrixJournalerScooterDeuxRoues = this.scooterRepository.findTotalPrixScooter();
+
+        /*Total général, deux roue et quatres roues*/
+        int totalGeneralDeuxRouesEtQuatreRoues = totalPrixVoitureCamionQuatreRoues + totalPrixJournalerScooterDeuxRoues;
+
+
+        return  new AgenceInformationDto(
+                totalAgence,
+                totalVehicule,
+                totalCamion,
+                totalScooter,
+                totalClient,
+                totalReservation,
+                totalPrixVoitureCamionQuatreRoues,
+                totalPrixJournalerScooterDeuxRoues,
+                totalGeneralDeuxRouesEtQuatreRoues
+        );
+    }
 }
 
 

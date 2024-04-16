@@ -1,6 +1,6 @@
 package com.msr.agenceloc.image;
 
-import com.msr.agenceloc.automobile.AutomobilRepository;
+import com.msr.agenceloc.automobile.repositories.AutomobilRepository;
 import com.msr.agenceloc.automobile.Automobile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

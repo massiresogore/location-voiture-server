@@ -47,7 +47,8 @@ public abstract   class Automobile {
     )
     List<ClientReserveVehicule> clientReserveVehicules;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(nullable = false, name = "agence_id")
     private Agence agence;
 

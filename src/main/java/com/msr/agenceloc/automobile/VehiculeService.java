@@ -1,6 +1,8 @@
 package com.msr.agenceloc.automobile;
 
 
+import com.msr.agenceloc.automobile.repositories.VehiculeRepository;
+import com.msr.agenceloc.automobile.subclasse.Vehicule;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

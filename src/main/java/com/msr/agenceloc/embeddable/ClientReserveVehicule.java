@@ -1,6 +1,6 @@
 package com.msr.agenceloc.embeddable;
 
-import com.msr.agenceloc.automobile.Vehicule;
+import com.msr.agenceloc.automobile.subclasse.Vehicule;
 import com.msr.agenceloc.client.ClientUser;
 import com.msr.agenceloc.date.DateReservation;
 import jakarta.persistence.*;

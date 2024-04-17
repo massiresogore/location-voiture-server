@@ -131,6 +131,14 @@ public abstract   class Automobile {
 
     }
 
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
     @Override
     public String toString() {
         return "Automobile{" +

@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface ScooterRepository extends JpaRepository<Scooter, Long> {
     @Query(value = "SELECT SUM(`prix_journalier`) FROM scooter WHERE 1;", nativeQuery = true)
     Optional<Integer> findTotalPrixScooter();
+
+
 }

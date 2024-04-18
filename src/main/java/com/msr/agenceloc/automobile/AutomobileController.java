@@ -298,33 +298,34 @@ public class AutomobileController {
           List<com.msr.agenceloc.automobile.Automobile> automobiles=  this.automobilRepository.findAllByIsBooked(true);
          int totalReservation = automobiles.size();
 
-        //total priJournalier voiture,camion,
-        Optional<Integer> totalPriJournalierVehicule = this.vehiculeRepository.findTotalPrixVehicule();
-        int totalPriJournalierVehiculeV= 0;
-        if (totalPriJournalierVehicule.isPresent()){
-            totalPriJournalierVehiculeV=totalPriJournalierVehicule.get();
+        //total prix voiture,camion résevé,
+        Optional<Integer> totalPrixVehiculeAndCamionReserve = this.reservationRepository.findTotalPrixVehiculeAndCamionReserve();
+        int totalPrixVehiculeAndCamionReserveV= 0;
+        if (totalPrixVehiculeAndCamionReserve.isPresent()){
+            totalPrixVehiculeAndCamionReserveV=totalPrixVehiculeAndCamionReserve.get();
         }
 
+/*
 
-        //Total Proux journalier camion
+        //Total Prix journalier camion
         Optional<Integer>  totalPrixJournalierCamion = this.camionRepository.findTotalPrixCamion();
         int totalPrixJournalierCamionV=0;
         if (totalPrixJournalierCamion.isPresent()){
             totalPrixJournalierCamionV = totalPrixJournalierCamion.get();
         }
+*/
 
-        //Total prix journalier scooter
-        Optional<Integer>  totalPrixJournalerScooterDeuxRoues = this.scooterRepository.findTotalPrixScooter();
-        int totalPrixJournalerScooterDeuxRouesV=0;
-        if (totalPrixJournalerScooterDeuxRoues.isPresent()){
-            totalPrixJournalerScooterDeuxRouesV=totalPrixJournalerScooterDeuxRoues.get();
+        //Total prix  scooter réservé
+        Optional<Integer>  totalPrixScooterDeuxRouesreserve = this.reservationRepository.totalPrixScooterReserve();
+        int totalPrixScooterReserve=0;
+        if (totalPrixScooterDeuxRouesreserve.isPresent()){
+            totalPrixScooterReserve=totalPrixScooterDeuxRouesreserve.get();
         }
 
+        int totalPrixVoitureCamionQuatreRoues = totalPrixVehiculeAndCamionReserveV;
 
-        int totalPrixVoitureCamionQuatreRoues = totalPriJournalierVehiculeV + totalPrixJournalierCamionV;
-
-        /*Total général, deux roue et quatres roues*/
-        int totalGeneralDeuxRouesEtQuatreRoues = totalPrixVoitureCamionQuatreRoues + totalPrixJournalerScooterDeuxRouesV;
+        /*Total général de réservation, deux roue et quatres roues*/
+        int totalGeneralDeuxRouesEtQuatreRoues = totalPrixVoitureCamionQuatreRoues + totalPrixScooterReserve;
         return  new AgenceInformationDto(
                 totalAgence,
                 totalVehicule,
@@ -333,7 +334,7 @@ public class AutomobileController {
                 totalClient,
                 totalReservation,
                 totalPrixVoitureCamionQuatreRoues,
-                totalPrixJournalerScooterDeuxRouesV,
+                totalPrixScooterReserve,
                 totalGeneralDeuxRouesEtQuatreRoues
         );
 

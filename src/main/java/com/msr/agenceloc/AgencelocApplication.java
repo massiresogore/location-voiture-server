@@ -42,7 +42,6 @@ public class AgencelocApplication {
 
 
 
-
 /*
 		//Réservation (User et véhicule et date de réservation)
 			//User

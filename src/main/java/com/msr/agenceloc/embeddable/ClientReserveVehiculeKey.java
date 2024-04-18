@@ -13,8 +13,8 @@ public class ClientReserveVehiculeKey implements Serializable {
     @Column(name = "client_user_id")
     private Long clientUserId;
 
-    @Column(name = "vehicule_id")
-    private Long vehiculeId;
+    @Column(name = "automobile_id")
+    private Long automobileId;
 
     @Column(name = "date_reservation")
     private LocalDate dateReservation;
@@ -22,9 +22,9 @@ public class ClientReserveVehiculeKey implements Serializable {
     public ClientReserveVehiculeKey() {
     }
 
-    public ClientReserveVehiculeKey(Long clientUserId, Long vehiculeId, LocalDate dateReservation) {
+    public ClientReserveVehiculeKey(Long clientUserId, Long automobileId, LocalDate dateReservation) {
         this.clientUserId = clientUserId;
-        this.vehiculeId = vehiculeId;
+        this.automobileId = automobileId;
         this.dateReservation = dateReservation;
     }
 
@@ -37,11 +37,11 @@ public class ClientReserveVehiculeKey implements Serializable {
     }
 
     public Long getVehiculeId() {
-        return vehiculeId;
+        return automobileId;
     }
 
-    public void setVehiculeId(Long vehiculeId) {
-        this.vehiculeId = vehiculeId;
+    public void setVehiculeId(Long automobileId) {
+        this.automobileId = automobileId;
     }
 
     public LocalDate getDateReservation() {
@@ -50,5 +50,14 @@ public class ClientReserveVehiculeKey implements Serializable {
 
     public void setDateReservation(LocalDate dateReservation) {
         this.dateReservation = dateReservation;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientReserveVehiculeKey{" +
+                "clientUserId=" + clientUserId +
+                ", automobileId=" + automobileId +
+                ", dateReservation=" + dateReservation +
+                '}';
     }
 }

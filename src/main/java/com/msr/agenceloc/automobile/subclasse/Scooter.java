@@ -25,4 +25,8 @@ public class Scooter extends Automobile {
     public void setCylindre(int cylindre) {
         this.cylindre = cylindre;
     }
+    @Override
+    public String getClassName() {
+        return super.getClassName();
+    }
 }

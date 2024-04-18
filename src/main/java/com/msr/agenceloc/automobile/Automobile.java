@@ -41,7 +41,7 @@ public abstract   class Automobile {
 
 
     @OneToMany(
-            mappedBy = "vehicule",
+            mappedBy = "automobile",
             fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
@@ -75,6 +75,12 @@ public abstract   class Automobile {
         this.fileDatas.add(fileData);
         fileData.setAutomobile(this);
     }
+
+
+public String getClassName(){
+
+        return this.getClass().getSimpleName();
+}
 
 
     public Long getId() {

@@ -1,6 +1,6 @@
 package com.msr.agenceloc.embeddable;
 
-import com.msr.agenceloc.automobile.subclasse.Vehicule;
+import com.msr.agenceloc.automobile.Automobile;
 import com.msr.agenceloc.client.ClientUser;
 import com.msr.agenceloc.date.DateReservation;
 import jakarta.persistence.*;
@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "reservation")
 public class ClientReserveVehicule {
 
     @EmbeddedId
@@ -19,13 +20,13 @@ public class ClientReserveVehicule {
     @JoinColumn(name = "client_user_id" )
     ClientUser clientUser;
 
-    @MapsId("vehiculeId")
+    @MapsId("automobileId")
     @ManyToOne
-    @JoinColumn(name = "vehicule_id" )
-    Vehicule vehicule;
+    @JoinColumn(name = "automobile_id" )
+    Automobile automobile;
 
     @MapsId("dateReservation")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "date_reservation" )
     DateReservation dateReservation;
 
@@ -37,17 +38,44 @@ public class ClientReserveVehicule {
     @NotNull
     LocalDate dateDeFin;
 
+    @Column(name = "nombre_jour")
+    @NotNull
+    private int nombreJour;
+
+    @Column(name = "prix_journalier")
+    @NotNull
+    private int prixJournalier;
+
+    @Column(name = "prix_total_reservation")
+    private int prixTotalReservation;
+
+
     public ClientReserveVehicule() {
     }
 
-    public ClientReserveVehicule(ClientReserveVehiculeKey id, ClientUser clientUser, Vehicule vehicule, DateReservation dateReservation, LocalDate dateDebut, LocalDate dateDeFin) {
+    public ClientReserveVehicule(ClientReserveVehiculeKey id,
+                                 ClientUser clientUser,
+                                 Automobile automobile,
+                                 DateReservation dateReservation,
+                                 LocalDate dateDebut,
+                                 LocalDate dateDeFin,
+                                 int nombreJour,
+                                 int prixJournalier) {
         this.id = id;
         this.clientUser = clientUser;
-        this.vehicule = vehicule;
+        this.automobile = automobile;
         this.dateReservation = dateReservation;
         this.dateDebut = dateDebut;
         this.dateDeFin = dateDeFin;
+        this.nombreJour = nombreJour;
+        this.prixJournalier = prixJournalier;
     }
+
+    public void calculPrixTotal(){
+       this.prixTotalReservation =  this.prixJournalier * this.nombreJour;
+    }
+
+
 
     public ClientReserveVehiculeKey getId() {
         return id;
@@ -65,12 +93,12 @@ public class ClientReserveVehicule {
         this.clientUser = clientUser;
     }
 
-    public Vehicule getVehicule() {
-        return vehicule;
+    public Automobile getAutomobile() {
+        return automobile;
     }
 
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
+    public void setAutomobile(Automobile automobile) {
+        this.automobile = automobile;
     }
 
     public DateReservation getDateReservation() {
@@ -95,5 +123,42 @@ public class ClientReserveVehicule {
 
     public void setDateDeFin(LocalDate dateDeFin) {
         this.dateDeFin = dateDeFin;
+    }
+
+    public int getNombreJour() {
+        return nombreJour;
+    }
+
+    public void setNombreJour(int nombreJour) {
+        this.nombreJour = nombreJour;
+        this.calculPrixTotal();
+    }
+
+    public int getPrixJournalier() {
+        return prixJournalier;
+    }
+
+    public void setPrixJournalier(int prixJournalier) {
+        this.prixJournalier = prixJournalier;
+    }
+
+    public int getPrixTotalReservation() {
+        return prixTotalReservation;
+    }
+
+    public void setPrixTotalReservation(int prixTotalReservation) {
+        this.prixTotalReservation = prixTotalReservation;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientReserveVehicule{" +
+                "id=" + id +
+                ", clientUser=" + clientUser +
+                ", automobile=" + automobile +
+                ", dateReservation=" + dateReservation +
+                ", dateDebut=" + dateDebut +
+                ", dateDeFin=" + dateDeFin +
+                '}';
     }
 }

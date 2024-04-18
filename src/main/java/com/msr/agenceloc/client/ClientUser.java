@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,7 +40,6 @@ public class ClientUser {
     private boolean isBooked;
 
     @ManyToOne(
-            fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL}
     )
     @JoinColumn(name = "adresse_id", nullable = false)
@@ -50,6 +50,18 @@ public class ClientUser {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
     List<ClientReserveVehicule> clientReserveVehicules;
+
+    public void addReservation(
+                               ClientReserveVehicule clientReserveVehicule
+    )
+    {
+
+        if (clientReserveVehicules==null){
+            this.clientReserveVehicules = new ArrayList<>();
+        }
+        clientReserveVehicule.setClientUser(this);
+
+    }
 
     public ClientUser() {
     }

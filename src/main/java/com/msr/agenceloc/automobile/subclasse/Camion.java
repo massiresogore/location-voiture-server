@@ -29,5 +29,8 @@ public class Camion extends Automobile {
         this.longueur = longueur;
     }
 
-
+    @Override
+    public String getClassName() {
+        return super.getClassName();
+    }
 }

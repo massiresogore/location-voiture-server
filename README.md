@@ -1,5 +1,11 @@
 # Travail personel Bachelor 3 :Système de Gestion de Location de Véhicules
-
+* mon vardum
+*   /*System.out.printf("...%s%n".repeat(5),
+    "client id :"+clientId,
+    "auto id: "+automobileId,
+    "Date reservation :"+ dateReservation,
+    "Date début :"+ dateDebut,
+    "Date fint :"+ dateFin);*/
 ## <ins> Intervenant:</ins>
 
 1. Massire
@@ -86,3 +92,4 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.
 
 - lien polimorphysme
   https://www.javatpoint.com/hibernate-inheritance-mapping-tutorial#
+- recuperer .count() et non la list😅.

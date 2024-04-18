@@ -54,4 +54,9 @@ public class Vehicule extends Automobile {
                 ", nbrPorte=" + nbrPorte +
                 '}';
     }
+
+    @Override
+    public String getClassName() {
+        return super.getClassName();
+    }
 }

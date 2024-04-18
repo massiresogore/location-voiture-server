@@ -18,45 +18,58 @@ public class AgencelocApplication {
 
 	}
 
-/*
-	@Bean
+
+	/*@Bean
 	 public CommandLineRunner addVeh(
-			 AgenceRepository agenceRepository,
-			 AutomobilRepository automobilRepository
+			 ClientUserRepository clientUserRepository,
+			 AutomobilRepository automobilRepository,
+			 DateReservationRepository dateReservationRepository,
+			 ReservationRepository reservationRepository
+
 									 ){
-		 Agence afrimeta = agenceRepository.findById(Long.parseLong(String.valueOf(1))).get();
 
-		 //créé véhicule
+		//Réservation (User et véhicule et date de réservation)
+			//User
+		ClientUser eyenga = clientUserRepository.findById(Long.parseLong("1")).get();
 
+		//Véhicule
+		Automobile vehicule = automobilRepository.findById(Long.parseLong("2")).get();
+		System.out.println(vehicule);
 
+		//Date
+		DateReservation dateReservation = new DateReservation(LocalDate.now());
+		dateReservationRepository.save(dateReservation);
 
+		//Reserver maintenant
+			//clé de réservation
+				ClientReserveVehiculeKey clientReserveVehiculeKey = new ClientReserveVehiculeKey(
+						eyenga.getClientUserId(),
+						vehicule.getId(),
+						dateReservation.getDateReservation()
+				);
 
-		*/
-/*Automobile veicule = new Vehicule(
-				null,
-				"rouge",
-				20,
-				46,
-				false,
-
+			//Reservation
+		ClientReserveVehicule clientReserveVehicule = new ClientReserveVehicule(
+				clientReserveVehiculeKey,
+				eyenga,
+				vehicule,
+				dateReservation,
+				LocalDate.now(),
+				LocalDate.now()
 		);
-		Automobile vehicule = new Vehicule(
-				null,
-				automobile.couleur(),
-				automobile.poids(),
-				automobile.prixJournalier(),
-				automobile.isBooked(),
-				client,
-				automobile.nbRoues(),
-				automobile.nbrPorte()
-		);*//*
+		System.out.println(vehicule);
+		vehicule.setBooked(true);
+		Automobile a = automobilRepository.save(vehicule);
+		System.out.println(a);
+		reservationRepository.save(clientReserveVehicule);
 
 
 		return runner ->{
-			System.out.println();
+			System.out.println("done");
+
 
 		};
-	 }
-*/
+	 }*/
+
 
 }

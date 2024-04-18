@@ -91,7 +91,9 @@ public class AutomobileService {
                 dateDebut,
                 dateFin,
                 reservationDto.nombreJour(),
-                reservationDto.prixJournalier()
+                reservationDto.prixJournalier(),
+                reservationDto.prixTotalReservation(),
+                reservationDto.designation()
         );
 
         vehicule.setBooked(true);

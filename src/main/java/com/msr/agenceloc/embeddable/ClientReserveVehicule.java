@@ -46,8 +46,11 @@ public class ClientReserveVehicule {
     @NotNull
     private int prixJournalier;
 
-    @Column(name = "prix_total_reservation")
+    @Column(name = "prix_reservation")
     private int prixTotalReservation;
+
+    @NotNull
+    private String designation;
 
 
     public ClientReserveVehicule() {
@@ -60,7 +63,9 @@ public class ClientReserveVehicule {
                                  LocalDate dateDebut,
                                  LocalDate dateDeFin,
                                  int nombreJour,
-                                 int prixJournalier) {
+                                 int prixJournalier,
+                                 int prixTotalReservation,
+                                 String designation) {
         this.id = id;
         this.clientUser = clientUser;
         this.automobile = automobile;
@@ -69,13 +74,9 @@ public class ClientReserveVehicule {
         this.dateDeFin = dateDeFin;
         this.nombreJour = nombreJour;
         this.prixJournalier = prixJournalier;
+        this.prixTotalReservation = prixTotalReservation;
+        this.designation = designation;
     }
-
-    public void calculPrixTotal(){
-       this.prixTotalReservation =  this.prixJournalier * this.nombreJour;
-    }
-
-
 
     public ClientReserveVehiculeKey getId() {
         return id;
@@ -131,7 +132,6 @@ public class ClientReserveVehicule {
 
     public void setNombreJour(int nombreJour) {
         this.nombreJour = nombreJour;
-        this.calculPrixTotal();
     }
 
     public int getPrixJournalier() {
@@ -148,6 +148,14 @@ public class ClientReserveVehicule {
 
     public void setPrixTotalReservation(int prixTotalReservation) {
         this.prixTotalReservation = prixTotalReservation;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     @Override

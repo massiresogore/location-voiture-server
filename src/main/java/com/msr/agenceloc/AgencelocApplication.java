@@ -1,7 +1,13 @@
 package com.msr.agenceloc;
 
+import com.msr.agenceloc.automobile.repositories.AutomobilRepository;
+import com.msr.agenceloc.client.ClientUserRepository;
+import com.msr.agenceloc.date.DateReservationRepository;
+import com.msr.agenceloc.embeddable.ReservationRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AgencelocApplication {
@@ -19,7 +25,7 @@ public class AgencelocApplication {
 	}
 
 
-	/*@Bean
+	@Bean
 	 public CommandLineRunner addVeh(
 			 ClientUserRepository clientUserRepository,
 			 AutomobilRepository automobilRepository,
@@ -28,6 +34,16 @@ public class AgencelocApplication {
 
 									 ){
 
+
+
+
+
+
+
+
+
+
+/*
 		//Réservation (User et véhicule et date de réservation)
 			//User
 		ClientUser eyenga = clientUserRepository.findById(Long.parseLong("1")).get();
@@ -62,14 +78,14 @@ public class AgencelocApplication {
 		Automobile a = automobilRepository.save(vehicule);
 		System.out.println(a);
 		reservationRepository.save(clientReserveVehicule);
-
+*/
 
 		return runner ->{
 			System.out.println("done");
 
 
 		};
-	 }*/
+	 }
 
 
 }

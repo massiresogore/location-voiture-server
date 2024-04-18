@@ -4,7 +4,9 @@ public record ReservationDto(
         String dateDebut,
         String dateFin,
         int nombreJour,
-        int prixJournalier
+        int prixJournalier,
+        int prixTotalReservation,
+        String designation
 
 ) {
 }

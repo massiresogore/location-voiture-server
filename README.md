@@ -89,7 +89,25 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.
     car les attributs de ses sous classe non crée sera nullable.
     //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
+## Cinquième partie – Administration – Dashboard – Pourcentage
+1. Sur la même page « Dashboard », ajouter la répartition en pourcentage pour les voitures, camions et deux roues.
+   Ex : voiture 55%, camion 25, deux roues 20%
+2. Effectuer la même action en répartissant les pourcentages entre les différentes agences
+   Ex : agence de Paris 30%, agence de Nantes 70%
+
+
+
+
+
+
+
+
+
+
+
+
 
 - lien polimorphysme
   https://www.javatpoint.com/hibernate-inheritance-mapping-tutorial#
 - recuperer .count() et non la list😅.
+

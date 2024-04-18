@@ -168,6 +168,7 @@ public class AutomobileController {
     public Result addVehicule(@Valid @RequestBody AutomobileDto automobile)
     {
 
+
         Agence agence = agenceRepository.findById(automobile.agenceId()).orElseThrow(
                 ()-> new ObjectNotFoundException("agence", automobile.agenceId())
         );

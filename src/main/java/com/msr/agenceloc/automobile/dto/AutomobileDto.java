@@ -16,8 +16,7 @@ public record AutomobileDto(
                  int nbrPorte,
 
                 int cylindre,
-
-
+                 
                  int longueur,
 
                  boolean isBooked,

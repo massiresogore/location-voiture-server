@@ -19,8 +19,8 @@ public class AgenceToAgenceDtoConverter implements Converter<Agence, AgenceDto> 
      return  new AgenceDto(
              source.getAgenceId(),
              source.getNom(),
-             source.getTel(),
              source.getEmail(),
+             source.getTel(),
              source.getAdresse()
      );
 

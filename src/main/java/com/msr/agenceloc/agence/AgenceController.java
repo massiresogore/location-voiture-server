@@ -58,9 +58,9 @@ public class AgenceController {
     @PostMapping
     public Result addAgence(@Valid @RequestBody AgenceDto agenceDto)
     {
+       // System.out.println(agenceDto);
         //convert to agence
        Agence agence = agenceDtoToAgenceConverter.convert(agenceDto);
-
        Agence savedAgence = this.agenceService.save(agence);
 
 
@@ -73,7 +73,8 @@ public class AgenceController {
     @PutMapping("/{agenceId}")
     public Result updateAgence(@Valid @RequestBody AgenceDto agenceDto, @PathVariable Long agenceId)
     {
-        return  new Result(true,StatusCode.SUCCESS,
+       // System.out.println(agenceDto);
+      return  new Result(true,StatusCode.SUCCESS,
                 "Update success",
                 this.agenceToAgenceDtoConverter.convert(this.agenceService.update(agenceId,this.agenceDtoToAgenceConverter.convert(agenceDto))));
     }

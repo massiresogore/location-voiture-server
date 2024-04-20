@@ -20,6 +20,7 @@ public class ClientUser {
     @Pattern(regexp = "^[a-z]{6,8}$",
             message = "prenom must be of 6 to 8 length with no special characters")
     @NotNull
+    @Column(unique = true)
     private String nom;
     @Pattern(regexp = "^[a-z]{2,30}$",
             message = "prenom must be of 6 to 30 length with no special characters")
@@ -27,17 +28,19 @@ public class ClientUser {
     private String prenom;
 
     @NotNull
-    private String role;//a voir, cree une entité
+    private String roles;//a voir, cree une entité
 
     @Email
     @NotNull
+    @Column(unique = true)
     private String email;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,12}$",
-            message = "password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,100}$",
+//            message = "password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
     @NotNull
     private String password;
-    private boolean isBooked;
+
+    private boolean enable;
 
     @ManyToOne(
             cascade = {CascadeType.ALL}
@@ -66,21 +69,14 @@ public class ClientUser {
     public ClientUser() {
     }
 
-    public ClientUser(Long clientUserId,
-                      String nom,
-                      String prenom,
-                      String role,
-                      String email,
-                      String password,
-                      boolean isBooked,
-                      Adresse adresse) {
+    public ClientUser(Long clientUserId, String nom, String prenom, String roles, String email, String password, boolean enable, Adresse adresse) {
         this.clientUserId = clientUserId;
         this.nom = nom;
         this.prenom = prenom;
-        this.role = role;
+        this.roles = roles;
         this.email = email;
         this.password = password;
-        this.isBooked = isBooked;
+        this.enable = enable;
         this.adresse = adresse;
     }
 
@@ -108,12 +104,12 @@ public class ClientUser {
         this.prenom = prenom;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(String role) {
+        this.roles = role;
     }
 
     public String getEmail() {
@@ -132,14 +128,6 @@ public class ClientUser {
         this.password = password;
     }
 
-    public boolean isBooked() {
-        return isBooked;
-    }
-
-    public void setBooked(boolean booked) {
-        isBooked = booked;
-    }
-
     public Adresse getAdresse() {
         return adresse;
     }
@@ -148,16 +136,23 @@ public class ClientUser {
         this.adresse = adresse;
     }
 
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
     @Override
     public String toString() {
         return "ClientUser{" +
                 "clientUserId=" + clientUserId +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", role='" + role + '\'' +
+                ", role='" + roles + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isBooked=" + isBooked +
                 ", adresse=" + adresse +
                 '}';
     }

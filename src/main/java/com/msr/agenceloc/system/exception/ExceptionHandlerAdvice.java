@@ -4,7 +4,8 @@ import com.msr.agenceloc.system.Result;
 import com.msr.agenceloc.system.StatusCode;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.TransactionSystemException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -49,6 +50,12 @@ public class ExceptionHandlerAdvice {
 
         return new Result(false,StatusCode.INVALID_ARGUMENTS,"Provided arguments are invalid, see data for details.",map);
 
+    }
+
+    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    Result handleAuthenticationException (Exception exception){
+        return new Result(false, StatusCode.UNAUTHORIZED,"usename or password not correct" + exception.getMessage());
     }
 
 }

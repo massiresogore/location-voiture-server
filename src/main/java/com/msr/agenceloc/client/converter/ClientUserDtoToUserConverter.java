@@ -23,8 +23,7 @@ public class ClientUserDtoToUserConverter implements Converter<ClientUserDto, Cl
         clientUser.setClientUserId(source.clientUserId());
         clientUser.setEmail(source.email());
         clientUser.setPassword(source.password());
-        clientUser.setBooked(source.isBooked());
-        clientUser.setRole(source.role());
+        clientUser.setRoles(source.roles());
         clientUser.setAdresse(source.adresse());
         return clientUser;
     }

@@ -1,18 +1,27 @@
 package com.msr.agenceloc.client;
+
+import com.msr.agenceloc.security.MyUserPrincipal;
 import com.msr.agenceloc.system.exception.ObjectNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ClientUserService {
+public class ClientUserService implements UserDetailsService {
 
     private final ClientUserRepository clientUserRepository;
 
+    private final PasswordEncoder passwordEncoder;
 
-    public ClientUserService(ClientUserRepository clientUserRepository) {
+
+    public ClientUserService(ClientUserRepository clientUserRepository, PasswordEncoder passwordEncoder) {
         this.clientUserRepository = clientUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -27,6 +36,7 @@ public class ClientUserService {
      */
     public ClientUser save(ClientUser clientUser)
     {
+        clientUser.setPassword(this.passwordEncoder.encode(clientUser.getPassword()));
 
         return this.clientUserRepository.save(clientUser);
     }
@@ -70,8 +80,7 @@ public class ClientUserService {
                 .map(oldUser->{
                     oldUser.setNom(updatedUser.getNom());
                     oldUser.setPrenom(updatedUser.getPrenom());
-                    oldUser.setRole(updatedUser.getRole());
-                    oldUser.setBooked(updatedUser.isBooked());
+                    oldUser.setRoles(updatedUser.getRoles());
                     oldUser.setEmail(updatedUser.getEmail());
                     oldUser.setPassword(updatedUser.getPassword());
                     oldUser.setAdresse(updatedUser.getAdresse());
@@ -109,5 +118,12 @@ public class ClientUserService {
                .orElseThrow(()->new ObjectNotFoundException("user",userId));
 
        this.clientUserRepository.deleteById(userId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+      return   this.clientUserRepository.findByNom(username)
+                .map(clientUser -> new MyUserPrincipal(clientUser))
+                .orElseThrow(()-> new UsernameNotFoundException("username "+username+" is not found"));
     }
 }

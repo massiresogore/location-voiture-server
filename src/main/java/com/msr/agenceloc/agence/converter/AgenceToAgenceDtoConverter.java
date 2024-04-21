@@ -21,7 +21,8 @@ public class AgenceToAgenceDtoConverter implements Converter<Agence, AgenceDto> 
              source.getNom(),
              source.getEmail(),
              source.getTel(),
-             source.getAdresse()
+             source.getAdresse(),
+             source.getNombreOfAutomobile()
      );
 
     }

@@ -15,4 +15,8 @@ public interface ReservationRepository extends JpaRepository<ClientReserveVehicu
 
     @Query(value = "SELECT SUM(`prix_reservation`) FROM reservation r WHERE r.designation='Vehicule' OR r.designation='Camion' ;", nativeQuery = true)
     Optional<Integer> findTotalPrixVehiculeAndCamionReserve();
+
+  /*  @Query(value = "select COUNT(*) from vehicule as v INNER JOIN agence as a on v.agence_id=a.agence_id WHERE v.is_booked =1;", nativeQuery = true)
+    int findAllByIdMatches(Long id);
+*/
 }

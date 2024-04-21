@@ -33,8 +33,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,this.baseUrl+"/agences").permitAll()
                         .requestMatchers(HttpMethod.PUT,this.baseUrl+"/agences/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH,this.baseUrl+"/agences/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,this.baseUrl+"/users").permitAll()
-//                        .requestMatchers(HttpMethod.GET,this.baseUrl+"/users").hasAuthority("ROLE_admin")//protecting endpoint
+//                        .requestMatchers(HttpMethod.GET,this.baseUrl+"/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,this.baseUrl+"/users").hasAuthority("ROLE_admin")//protecting endpoint
                         //.requestMatchers(HttpMethod.POST,this.baseUrl+"/users").authenticated()//protecting endpoint
                         .requestMatchers(HttpMethod.POST,this.baseUrl+"/users").permitAll()
 //                        .requestMatchers(HttpMethod.POST,this.baseUrl+"/users").hasAuthority("ROLE_admin")//protecting endpoint

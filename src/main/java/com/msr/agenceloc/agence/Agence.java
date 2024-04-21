@@ -1,6 +1,7 @@
 package com.msr.agenceloc.agence;
 
 import com.msr.agenceloc.adresse.Adresse;
+import com.msr.agenceloc.automobile.Automobile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,6 +43,20 @@ public class Agence {
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
 
+    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
+    List<Automobile> automobiles;
+
+    public void addAuto(Automobile automobile){
+        if(this.automobiles == null){
+            this.automobiles = new ArrayList<>();
+        }
+        this.automobiles.add(automobile);
+        automobile.setAgence(this);
+    }
+
+    public int getNombreOfAutomobile() {
+        return automobiles.size();
+    }
 
     @Override
     public String toString() {
@@ -49,6 +67,7 @@ public class Agence {
                 ", tel='" + tel + '\'' +
                 '}';
     }
+
 }
 
 /*

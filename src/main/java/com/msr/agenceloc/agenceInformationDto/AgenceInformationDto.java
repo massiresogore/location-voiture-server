@@ -10,6 +10,9 @@ public record AgenceInformationDto(
         int totalPrixVoitureCamionQuatreRoues,
 
         int totalPrixJournalerScooterDeuxRoues,
-        int totalGeneralDeuxRouesEtQuatreRoues
+        int totalGeneralDeuxRouesEtQuatreRoues,
+        int pourcentageCamionReserver,
+        int pourcentageVehiculeReserver,
+        int pourcentageScooterReserver
 ) {
 }

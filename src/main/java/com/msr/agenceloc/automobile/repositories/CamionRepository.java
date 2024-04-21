@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface CamionRepository extends JpaRepository<Camion, Long> {
     @Query(value = "SELECT SUM(`prix_journalier`) FROM camion WHERE 1;", nativeQuery = true)
     Optional<Integer> findTotalPrixCamion();
+
+
+    @Query(value ="SELECT COUNT(*) FROM  camion WHERE is_booked=1;", nativeQuery = true)
+    int findAllByReserver(boolean isBooked);
 }

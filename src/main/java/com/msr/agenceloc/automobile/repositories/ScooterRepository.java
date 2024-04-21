@@ -12,5 +12,7 @@ public interface ScooterRepository extends JpaRepository<Scooter, Long> {
     @Query(value = "SELECT SUM(`prix_journalier`) FROM scooter WHERE 1;", nativeQuery = true)
     Optional<Integer> findTotalPrixScooter();
 
+    @Query(value ="SELECT COUNT(*) FROM  scooter WHERE is_booked=1;", nativeQuery = true)
+    int findAllByReserver(boolean isBooked);
 
 }

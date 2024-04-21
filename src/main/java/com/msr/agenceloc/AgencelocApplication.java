@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AgencelocApplication {
 
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
 		SpringApplication.run(AgencelocApplication.class, args);
 /*
 		Automobile scoo = new ScooterAbs("Jakarta","Bleue",12,"tria,gle");
@@ -14,30 +15,43 @@ public class AgencelocApplication {
 
 		//scoo.getObjevtName();;
 		vehi.getObjevtName();*/
+		//Totalv Véhicule réservé
 
 
 	}
 
 
 
-	/*@Bean
-	 public CommandLineRunner addVeh(
-			 ClientUserRepository clientUserRepository,
-			 AutomobilRepository automobilRepository,
-			 DateReservationRepository dateReservationRepository,
-			 ReservationRepository reservationRepository
-
-									 ){
 
 
+//	@Bean
+//	 public CommandLineRunner addVeh(
+//			 ClientUserRepository clientUserRepository,
+//			 AutomobilRepository automobilRepository,
+//			 DateReservationRepository dateReservationRepository,
+//			 ReservationRepository reservationRepository,
+//			 CamionRepository camionRepository
+//
+//									 ) {
+//
+//
+//
+//
+//		return runner ->{
+//			System.out.println("done");
+//
+//
+//		};
+//	}
+//
+//
+}
 
 
 
 
 
-
-
-*//*
+/*//*
 		//Réservation (User et véhicule et date de réservation)
 			//User
 		ClientUser eyenga = clientUserRepository.findById(Long.parseLong("1")).get();
@@ -73,13 +87,4 @@ public class AgencelocApplication {
 		System.out.println(a);
 		reservationRepository.save(clientReserveVehicule);
 *//*
-
-		return runner ->{
-			System.out.println("done");
-
-
-		};
-	 }*/
-
-
-}
+*/

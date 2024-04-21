@@ -193,7 +193,7 @@ public class AutomobileController {
         return  new Result(
                 true,
                 StatusCode.SUCCESS,
-                "Toutes les informations de l'application",
+                "Toutes les informations de l'application ",
                this.getInfoProgramme()
         );
     }
@@ -280,6 +280,9 @@ public class AutomobileController {
     public AgenceInformationDto getInfoProgramme()
     {
 
+
+
+
         //total Véhicule
          int totalVehicule = this.vehiculeRepository.findAll().size();
 
@@ -327,6 +330,22 @@ public class AutomobileController {
 
         /*Total général de réservation, deux roue et quatres roues*/
         int totalGeneralDeuxRouesEtQuatreRoues = totalPrixVoitureCamionQuatreRoues + totalPrixScooterReserve;
+
+        //Total Camion réservé
+        int totalCamionReserve = camionRepository.findAllByReserver(true);
+        //PoucentageCamion
+        int pourcentageCamionReserver = ((totalCamionReserve * 100)/totalCamion);
+
+
+        //Totalv Véhicule réservé
+        int totalVoitureReserve = this.vehiculeRepository.findAllByReserver(true);
+        //PoucentageVehicule
+        int pourcentageVehiculeReserver = ((totalVoitureReserve * 100)/totalVehicule);
+
+
+        int totalScooterReserve =this.scooterRepository.findAllByReserver(true);
+        int pourcentageScooterReserver = ((totalScooterReserve * 100)/totalScooter);
+
         return  new AgenceInformationDto(
                 totalAgence,
                 totalVehicule,
@@ -336,7 +355,10 @@ public class AutomobileController {
                 totalReservation,
                 totalPrixVoitureCamionQuatreRoues,
                 totalPrixScooterReserve,
-                totalGeneralDeuxRouesEtQuatreRoues
+                totalGeneralDeuxRouesEtQuatreRoues,
+                pourcentageCamionReserver,
+                pourcentageVehiculeReserver,
+                pourcentageScooterReserver
         );
 
 

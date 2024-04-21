@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
     @Query(value = "SELECT SUM(`prix_journalier`) FROM vehicule WHERE 1;", nativeQuery = true)
     Optional<Integer> findTotalPrixVehicule();
+
+    @Query(value ="SELECT COUNT(*) FROM  vehicule WHERE is_booked=1;", nativeQuery = true)
+    int  findAllByReserver(boolean isBooked);
+
 }

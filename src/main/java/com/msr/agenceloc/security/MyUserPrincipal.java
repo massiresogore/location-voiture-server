@@ -17,6 +17,12 @@ public class MyUserPrincipal implements UserDetails {
         this.clientUser = clientUser;
     }
 
+    /**
+     * on crée une chaine de caractère pour
+     * nous retourner "Role_admin" ou "Role_user", pour
+     * un utilisateur
+     *
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
      return Arrays.stream(StringUtils.tokenizeToStringArray(this.clientUser.getRoles(), " "))
@@ -30,7 +36,7 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.clientUser.getPassword();
+        return this.clientUser.getNom();
     }
 
     @Override

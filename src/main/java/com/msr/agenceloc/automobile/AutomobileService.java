@@ -113,4 +113,6 @@ public class AutomobileService {
     {
         return  this.automobilRepository.findById(automobileId).orElseThrow(()->new ObjectNotFoundException("vehicule",automobileId));
     }
+
+
 }

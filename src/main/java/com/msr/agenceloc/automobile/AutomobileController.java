@@ -70,7 +70,7 @@ public class AutomobileController {
     @GetMapping
     public Result getAllAuto()
     {
-       ;
+
         return new Result(true,StatusCode.SUCCESS,"All auto",this.automobilRepository.findAll());
     }
 
@@ -333,6 +333,7 @@ public class AutomobileController {
 
         //Total Camion réservé
         int totalCamionReserve = camionRepository.findAllByReserver(true);
+
         //PoucentageCamion
         int pourcentageCamionReserver = ((totalCamionReserve * 100)/totalCamion);
 
@@ -340,6 +341,7 @@ public class AutomobileController {
         //Totalv Véhicule réservé
         int totalVoitureReserve = this.vehiculeRepository.findAllByReserver(true);
         //PoucentageVehicule
+
         int pourcentageVehiculeReserver = ((totalVoitureReserve * 100)/totalVehicule);
 
 

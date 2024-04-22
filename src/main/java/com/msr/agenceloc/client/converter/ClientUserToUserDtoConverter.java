@@ -23,7 +23,8 @@ public class ClientUserToUserDtoConverter implements Converter<ClientUser, Clien
                 source.getPrenom(),
                 source.getRoles(),
                 source.getEmail(),
-                source.getPassword(),
+                "",
+                //source.getPassword(),//ne pas envoyé le mot de passe
                 source.getAdresse()
         );
     }

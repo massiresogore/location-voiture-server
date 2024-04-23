@@ -1,17 +1,19 @@
 package com.msr.agenceloc.automobile;
 
 import com.msr.agenceloc.agence.Agence;
-import com.msr.agenceloc.embeddable.ClientReserveVehicule;
 import com.msr.agenceloc.image.FileData;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -34,20 +36,11 @@ public abstract   class Automobile {
 
     protected int stock;
 
-
     @OneToMany(mappedBy = "automobile")
     protected List<FileData> fileDatas;
 
-
-
-    @OneToMany(
-            mappedBy = "automobile",
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
-    )
-    List<ClientReserveVehicule> clientReserveVehicules;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @ManyToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(nullable = false, name = "agence_id")
     private Agence agence;

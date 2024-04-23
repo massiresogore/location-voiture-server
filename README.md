@@ -112,6 +112,6 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.
 - recuperer .count() et non la list😅.
 
   - requette
-    select COUNT(*) from reservation as r JOIN vehicule as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=2;
+    select COUNT(*) from reservation as r JOIN voiture as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=2;
 
-select COUNT(*) from reservation as r JOIN vehicule as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=1;
+select COUNT(*) from reservation as r JOIN voiture as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=1;

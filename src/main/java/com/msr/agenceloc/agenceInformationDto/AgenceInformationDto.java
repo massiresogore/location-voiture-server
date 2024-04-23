@@ -1,18 +1,19 @@
 package com.msr.agenceloc.agenceInformationDto;
 
 public record AgenceInformationDto(
-        int totalAgence,
-        int totalVehicule,
-        int totalCamion,
-        int totalScooter,
-        int totalClient,
-        int totalReservation,
-        int totalPrixVoitureCamionQuatreRoues,
+        long totalAgence,
+        long totalVehicule,
+        long totalCamion,
+        long totalScooter,
+        long totalClient,
+        Long totalAutomobile,
+        long totalReservation
+       /* int totalPrixVoitureCamionQuatreRoues,
 
         int totalPrixJournalerScooterDeuxRoues,
         int totalGeneralDeuxRouesEtQuatreRoues,
         int pourcentageCamionReserver,
         int pourcentageVehiculeReserver,
-        int pourcentageScooterReserver
+        int pourcentageScooterReserver*/
 ) {
 }

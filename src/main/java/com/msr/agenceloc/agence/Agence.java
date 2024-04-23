@@ -6,14 +6,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@Data
+@NoArgsConstructor
 @Entity
 public class Agence {
     @Id
@@ -39,47 +37,7 @@ public class Agence {
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
 
-   /* @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    List<Automobile> automobiles;*/
 
-   /* public void addAuto(Automobile automobile){
-        if(this.automobiles == null){
-            this.automobiles = new ArrayList<>();
-        }
-        this.automobiles.add(automobile);
-        automobile.setAgence(this);
-    }*/
 
-//    public int getNombreOfAutomobile() {
-//        return automobiles.size();
-//    }
-
-    @Override
-    public String toString() {
-        return "Agence{" +
-                "agenceId=" + agenceId +
-                ", nom='" + nom + '\'' +
-                ", email='" + email + '\'' +
-                ", tel='" + tel + '\'' +
-                '}';
-    }
 
 }
-
-/*
-{
-        "password": "Ma1#legende",
-        "enable": true,
-        "role":"user",
-        "nom": "eyenga",
-        "prenom": "sogore",
-        "email": "eyenga@gmail.com",
-        "adresse": {
-        "cp":"87990",
-        "nom": "eyenga",
-        "numero": "90",
-        "ville": {
-        "nom": "Melun"
-        }
-        }
-        }*/

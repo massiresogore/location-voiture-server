@@ -1,4 +1,4 @@
-package com.msr.agenceloc.embeddable.dto;
+package com.msr.agenceloc.reservation.dtoResponse;
 
 import java.time.LocalDate;
 
@@ -6,11 +6,11 @@ public record ReservationResponseDto(
     Long clientUserId,
     String clientUserNom,
     Long automobileId,
-    LocalDate dateReservation,
     LocalDate  dateDebut,
     LocalDate dateFin,
     int prixJournalier,
-    String automobileName
+    String automobileName,
+    String agenceName
 
 
 ) {

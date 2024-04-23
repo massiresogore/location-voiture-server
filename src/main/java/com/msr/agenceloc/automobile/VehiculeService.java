@@ -1,8 +1,8 @@
 package com.msr.agenceloc.automobile;
 
 
-import com.msr.agenceloc.automobile.repositories.VehiculeRepository;
-import com.msr.agenceloc.automobile.subclasse.Vehicule;
+import com.msr.agenceloc.automobile.repositories.VoitureRepository;
+import com.msr.agenceloc.automobile.subclasse.Voiture;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class VehiculeService {
 
-    private final VehiculeRepository vehiculeRepository;
+    private final VoitureRepository voitureRepository;
 
-    public VehiculeService(VehiculeRepository vehiculeRepository) {
-        this.vehiculeRepository = vehiculeRepository;
+    public VehiculeService(VoitureRepository voitureRepository) {
+        this.voitureRepository = voitureRepository;
 
     }
 
-    public Vehicule save(Vehicule vehicule) {
-        return   this.vehiculeRepository.save(vehicule);
+    public Voiture save(Voiture voiture) {
+        return   this.voitureRepository.save(voiture);
     }
 
   /*  public List<Vehicule> findAllVehicule()

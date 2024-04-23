@@ -1,4 +1,4 @@
-package com.msr.agenceloc.embeddable;
+package com.msr.agenceloc.reservation;
 
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public ClientReserveVehicule reserver(ClientReserveVehicule clientReserveVehicule)
+    public Reservation reserver(Reservation reservation)
     {
-        return this.reservationRepository.save(clientReserveVehicule);
+        return this.reservationRepository.save(reservation);
     }
 
 

@@ -1,6 +1,6 @@
 package com.msr.agenceloc.commentaire;
 
-import com.msr.agenceloc.automobile.subclasse.Vehicule;
+import com.msr.agenceloc.automobile.subclasse.Voiture;
 import com.msr.agenceloc.client.ClientUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -34,7 +34,7 @@ public class Commentaire {
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "vehicule_id", nullable = false)
-    private Vehicule vehicule;
+    private Voiture voiture;
 
     @ManyToOne(
             fetch = FetchType.EAGER,

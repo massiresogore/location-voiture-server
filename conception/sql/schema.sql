@@ -1,4 +1,4 @@
-CREATE TABLE vehicule(
+CREATE TABLE voiture(
                          vehicule_id COUNTER,
                          couleur VARCHAR(50),
                          poids VARCHAR(50),
@@ -63,7 +63,7 @@ CREATE TABLE commentaire(
                             vehicule_id INT NOT NULL,
                             client_user_id INT NOT NULL,
                             PRIMARY KEY(commentaire_id),
-                            FOREIGN KEY(vehicule_id) REFERENCES vehicule(vehicule_id),
+                            FOREIGN KEY(vehicule_id) REFERENCES voiture(vehicule_id),
                             FOREIGN KEY(client_user_id) REFERENCES clientUser(client_user_id)
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE reserver(
                          dateFin DATETIME,
                          PRIMARY KEY(client_user_id, vehicule_id, date_reservation),
                          FOREIGN KEY(client_user_id) REFERENCES clientUser(client_user_id),
-                         FOREIGN KEY(vehicule_id) REFERENCES vehicule(vehicule_id),
+                         FOREIGN KEY(vehicule_id) REFERENCES voiture(vehicule_id),
                          FOREIGN KEY(date_reservation) REFERENCES dateReservation(date_reservation)
 );
 
@@ -84,6 +84,6 @@ CREATE TABLE fournir(
                         agence_id INT,
                         quantiteFourni INT,
                         PRIMARY KEY(vehicule_id, agence_id),
-                        FOREIGN KEY(vehicule_id) REFERENCES vehicule(vehicule_id),
+                        FOREIGN KEY(vehicule_id) REFERENCES voiture(vehicule_id),
                         FOREIGN KEY(agence_id) REFERENCES agence(agence_id)
 );

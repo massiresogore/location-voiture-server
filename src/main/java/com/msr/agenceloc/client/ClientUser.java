@@ -1,7 +1,7 @@
 package com.msr.agenceloc.client;
 
 import com.msr.agenceloc.adresse.Adresse;
-import com.msr.agenceloc.embeddable.ClientReserveVehicule;
+import com.msr.agenceloc.reservation.Reservation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -43,7 +43,7 @@ public class ClientUser {
     private boolean enable;
 
     @ManyToOne(
-            cascade = {CascadeType.ALL}
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
     @JoinColumn(name = "adresse_id", nullable = false)
     private Adresse adresse;
@@ -52,17 +52,15 @@ public class ClientUser {
             fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}
     )
-    List<ClientReserveVehicule> clientReserveVehicules;
+    List<Reservation> reservations;
 
-    public void addReservation(
-                               ClientReserveVehicule clientReserveVehicule
-    )
+    public void addReservation(Reservation reservation)
     {
 
-        if (clientReserveVehicules==null){
-            this.clientReserveVehicules = new ArrayList<>();
+        if (reservations ==null){
+            this.reservations = new ArrayList<>();
         }
-        clientReserveVehicule.setClientUser(this);
+        reservation.setClientUser(this);
 
     }
 

@@ -2,15 +2,13 @@ package com.msr.agenceloc.automobile;
 
 import com.msr.agenceloc.agence.Agence;
 import com.msr.agenceloc.agence.AgenceRepository;
+import com.msr.agenceloc.agence.AgenceService;
 import com.msr.agenceloc.agenceInformationDto.AgenceInformationDto;
 import com.msr.agenceloc.automobile.dto.AutomobileDto;
 import com.msr.agenceloc.automobile.repositories.AutomobilRepository;
 import com.msr.agenceloc.automobile.repositories.CamionRepository;
 import com.msr.agenceloc.automobile.repositories.ScooterRepository;
 import com.msr.agenceloc.automobile.repositories.VoitureRepository;
-import com.msr.agenceloc.automobile.subclasse.Camion;
-import com.msr.agenceloc.automobile.subclasse.Scooter;
-import com.msr.agenceloc.automobile.subclasse.Voiture;
 import com.msr.agenceloc.client.ClientUserRepository;
 import com.msr.agenceloc.image.StorageService;
 import com.msr.agenceloc.reservation.Reservation;
@@ -20,7 +18,6 @@ import com.msr.agenceloc.reservation.dto.ReservationDto;
 import com.msr.agenceloc.reservation.dtoResponse.ReservationResponseDto;
 import com.msr.agenceloc.system.Result;
 import com.msr.agenceloc.system.StatusCode;
-import com.msr.agenceloc.system.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
@@ -48,8 +45,9 @@ public class AutomobileController {
     private final ReservationRepository reservationRepository;
     private final ReservationService reservationService;
     private final AutomobileService automobileService;
+    private final AgenceService agenceService;
 
-    public AutomobileController(StorageService service, AutomobilRepository automobilRepository, ClientUserRepository clientUserRepository, ScooterRepository scooterRepository, VoitureRepository voitureRepository, CamionRepository camionRepository, AgenceRepository agenceRepository, ReservationRepository reservationRepository, ReservationService reservationService, AutomobileService automobileService) {
+    public AutomobileController(StorageService service, AutomobilRepository automobilRepository, ClientUserRepository clientUserRepository, ScooterRepository scooterRepository, VoitureRepository voitureRepository, CamionRepository camionRepository, AgenceRepository agenceRepository, ReservationRepository reservationRepository, ReservationService reservationService, AutomobileService automobileService, AgenceService agenceService) {
         this.service = service;
         this.automobilRepository = automobilRepository;
         this.clientUserRepository = clientUserRepository;
@@ -60,6 +58,7 @@ public class AutomobileController {
         this.reservationRepository = reservationRepository;
         this.reservationService = reservationService;
         this.automobileService = automobileService;
+        this.agenceService = agenceService;
     }
 
 
@@ -151,10 +150,6 @@ public class AutomobileController {
 
             reservationResponseDtoList.add(reservationDto);
         }
-        //System.out.println(reservations);
-
-
-
         return new Result(true, StatusCode.SUCCESS, "all reservation success",
                 reservationResponseDtoList
         );
@@ -165,33 +160,30 @@ public class AutomobileController {
     public Result addVehicule(@Valid @RequestBody AutomobileDto automobile)
     {
 
-
-        Agence agence = agenceRepository.findById(automobile.agenceId()).orElseThrow(
-                ()-> new ObjectNotFoundException("agence", automobile.agenceId())
-        );
+        Agence agence =this.agenceService.findById(automobile.agenceId());
 
         //create scooter
-        Result scooterResult = this.scooterResponse(automobile, agence);
+        Result scooterResult = this.scooterResult(automobile, agence);
         if (scooterResult != null) return scooterResult;
 
         //Create Camion
-        Result camionResult = this.camionResponse(automobile, agence);
+        Result camionResult = this.camionResult(automobile, agence);
         if(camionResult!= null) return camionResult;
 
-        //create vehicule
-        return this.vehiculeResult(automobile, agence);
+        //create voiture
+        Result voitureResult = this.vehiculeResult(automobile, agence);
+        if(voitureResult !=null) return  this.vehiculeResult(automobile, agence);
 
+      return   new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, "Something went wrong");
     }
 
     @GetMapping("/information")
     public Result information()
     {
-
-        return  new Result(
-                true,
+        return  new Result(true,
                 StatusCode.SUCCESS,
                 "Toutes les informations de l'application ",
-               this.getInfoProgramme()
+               this.agenceService.getInfoProgramme()
         );
     }
 
@@ -201,78 +193,39 @@ public class AutomobileController {
                            @RequestBody ReservationDto reservationDto
                            )
     {
-
-       // System.out.println(reservationDto);
         this.automobileService.reserver(clientId,automobileId,reservationDto);
-
         return new Result(true,StatusCode.SUCCESS,"réservation réussit");
     }
 
 
     private Result vehiculeResult(AutomobileDto automobile, Agence agence) {
-        com.msr.agenceloc.automobile.Automobile vehicule = new Voiture(
-                null,
-                automobile.couleur(),
-                automobile.poids(),
-                automobile.prixJournalier(),
-                automobile.isBooked(),
-                automobile.stock(),
-                agence,
-                automobile.nbRoues(),
-                automobile.nbrPorte()
-        );
-        Voiture savedVoiture = (Voiture) this.automobilRepository.save(vehicule);
-        return new Result(true, StatusCode.SUCCESS, "Create vehicule success",
-                savedVoiture
-        );
+       if(automobile.nbRoues() != 0 && automobile.nbrPorte() !=0 ){
+           return new Result(true, StatusCode.SUCCESS, "Create vehicule success",
+                   this.automobileService.createVoiture(automobile,agence)
+           );
+       }
+        return  null;
     }
 
-
-
-    private Result scooterResponse(AutomobileDto automobile,Agence agence) {
+    private Result scooterResult(AutomobileDto automobile,Agence agence) {
         if(automobile.cylindre() != 0){
-
-            com.msr.agenceloc.automobile.Automobile scooter = new Scooter(
-                    null,
-                    automobile.couleur(),
-                    automobile.poids(),
-                    automobile.prixJournalier(),
-                    automobile.isBooked(),
-                    automobile.stock(),
-                    agence,
-                    automobile.cylindre()
-            );
-
-            Scooter savedScooter = (Scooter) this.automobilRepository.save(scooter);
             return new Result(true, StatusCode.SUCCESS, "Create scooter success",
-                    savedScooter
+                    this.automobileService.createScooter(automobile,agence)
             );
         }
         return null;
     }
 
-    private Result camionResponse(AutomobileDto automobile, Agence agence) {
+    private Result camionResult(AutomobileDto automobile, Agence agence) {
+
+        System.out.println(automobile);
         if(automobile.longueur() != 0 ){
-
-            com.msr.agenceloc.automobile.Automobile camion = new Camion(
-                    null,
-                    automobile.couleur(),
-                    automobile.poids(),
-                    automobile.prixJournalier(),
-                    automobile.isBooked(),
-                    automobile.stock(),
-                    agence,
-                    automobile.longueur()
-            );
-
-            Camion savedCamion = (Camion) this.automobilRepository.save(camion);
             return new Result(true, StatusCode.SUCCESS, "Create camion success",
-                    savedCamion
+                    this.automobileService.createCamion(automobile,agence)
             );
         }
-        return null;
+       return null;
     }
-
 
     public AgenceInformationDto getInfoProgramme()
     {
@@ -291,64 +244,10 @@ public class AutomobileController {
         //Total client
         int totalClient = this.clientUserRepository.findAll().size();
 
-
         //total reservation
         long totalReservation= this.automobilRepository.findAllByIsBooked(true).size();
-         long totalAutomobile = this.automobileService.count();
+        long totalAutomobile = this.automobileService.count();
 
-        //total prix voiture,camion résevé,
-        //Optional<Integer> totalPrixVehiculeAndCamionReserve = this.reservationRepository.findTotalPrixVehiculeAndCamionReserve();
-//        int totalPrixVehiculeAndCamionReserveV= 0;
-//        if (totalPrixVehiculeAndCamionReserve.isPresent()){
-//            totalPrixVehiculeAndCamionReserveV=totalPrixVehiculeAndCamionReserve.get();
-//        }
-
-/*
-
-        //Total Prix journalier camion
-        Optional<Integer>  totalPrixJournalierCamion = this.camionRepository.findTotalPrixCamion();
-        int totalPrixJournalierCamionV=0;
-        if (totalPrixJournalierCamion.isPresent()){
-            totalPrixJournalierCamionV = totalPrixJournalierCamion.get();
-        }
-*/
-
-        //Total prix  scooter réservé
-       /* Optional<Integer>  totalPrixScooterDeuxRouesreserve = this.reservationRepository.totalPrixScooterReserve();
-        int totalPrixScooterReserve=0;
-        if (totalPrixScooterDeuxRouesreserve.isPresent()){
-            totalPrixScooterReserve=totalPrixScooterDeuxRouesreserve.get();
-        }*/
-
-        //int totalPrixVoitureCamionQuatreRoues = totalPrixVehiculeAndCamionReserveV;
-
-        /*Total général de réservation, deux roue et quatres roues*/
-//        int totalGeneralDeuxRouesEtQuatreRoues = totalPrixVoitureCamionQuatreRoues + totalPrixScooterReserve;
-
-        //Total Camion réservé
-//        int totalCamionReserve = camionRepository.findAllByReserver(true);
-
-        //PoucentageCamion
-//        int pourcentageCamionReserver = ((totalCamionReserve * 100)/totalCamion);
-
-
-        //Totalv Véhicule réservé
-//        int totalVoitureReserve = this.voitureRepository.findAllByReserver(true);
-        //PoucentageVehicule
-
-//        int pourcentageVehiculeReserver = ((totalVoitureReserve * 100)/totalVehicule);
-
-
-//        int totalScooterReserve =this.scooterRepository.findAllByReserver(true);
-//        int pourcentageScooterReserver = ((totalScooterReserve * 100)/totalScooter);
-//        /*
-//           long totalAgence,
-//        long totalVehicule,
-//        long totalCamion,
-//        long totalScooter,
-//        long totalClient,
-//        Long totalAutomobile,
-//        long totalReservation*/
 
         return  new AgenceInformationDto(
                 totalAgence,

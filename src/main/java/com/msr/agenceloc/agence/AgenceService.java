@@ -1,6 +1,12 @@
 package com.msr.agenceloc.agence;
 
+import com.msr.agenceloc.agenceInformationDto.AgenceInformationDto;
+import com.msr.agenceloc.automobile.repositories.AutomobilRepository;
+import com.msr.agenceloc.automobile.repositories.CamionRepository;
+import com.msr.agenceloc.automobile.repositories.ScooterRepository;
+import com.msr.agenceloc.automobile.repositories.VoitureRepository;
 import com.msr.agenceloc.client.ClientUser;
+import com.msr.agenceloc.client.ClientUserRepository;
 import com.msr.agenceloc.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -11,10 +17,20 @@ import java.util.List;
 @Service
 @Transactional
 public class AgenceService {
+    private final ScooterRepository scooterRepository;
+    private final VoitureRepository voitureRepository;
+    private final CamionRepository camionRepository;
     private final AgenceRepository agenceRepository;
+    private final AutomobilRepository automobilRepository;
+    private final ClientUserRepository clientUserRepository;
 
-    public AgenceService(AgenceRepository agenceRepository) {
+    public AgenceService(ScooterRepository scooterRepository, VoitureRepository voitureRepository, CamionRepository camionRepository, AgenceRepository agenceRepository, AutomobilRepository automobilRepository, ClientUserRepository clientUserRepository) {
+        this.scooterRepository = scooterRepository;
+        this.voitureRepository = voitureRepository;
+        this.camionRepository = camionRepository;
         this.agenceRepository = agenceRepository;
+        this.automobilRepository = automobilRepository;
+        this.clientUserRepository = clientUserRepository;
     }
 
     /***
@@ -96,6 +112,40 @@ public class AgenceService {
             oldAgence.setTel(update.getTel());
             return this.agenceRepository.save(oldAgence);
         }).orElseThrow(()->new ObjectNotFoundException("agence",agenceId));
+    }
+
+    public AgenceInformationDto getInfoProgramme()
+    {
+        //total Véhicule
+        long totalVehicule = this.voitureRepository.count();
+
+        //total Camions
+        long totalCamion = this.camionRepository.count();
+
+        //total Scooter
+        long totalScooter = this.scooterRepository.count();
+
+        //total Agence
+        long totalAgence = this.agenceRepository.count();
+
+        //Total client
+        int totalClient = this.clientUserRepository.findAll().size();
+
+        //total reservation
+        long totalReservation= this.automobilRepository.findAllByIsBooked(true).size();
+        long totalAutomobile = this.agenceRepository.count();
+
+
+        return  new AgenceInformationDto(
+                totalAgence,
+                totalVehicule,
+                totalCamion,
+                totalScooter,
+                totalClient,
+                totalAutomobile,
+                totalReservation
+        );
+
     }
 
 

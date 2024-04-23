@@ -35,12 +35,7 @@ public class ExceptionHandlerAdvice {
     Result handleObjectNotFoundException (DataIntegrityViolationException exception){
         return new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, exception.getMessage());
     }
-  /*  @ExceptionHandler(TransactionSystemException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    Result handleObjectNotFoundException (TransactionSystemException exception){
-        return new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, exception.getLocalizedMessage());
-    }
-*/
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     Result handleValidationException(MethodArgumentNotValidException exception){
@@ -92,6 +87,12 @@ public class ExceptionHandlerAdvice {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     Result handleAccessDeniedException(AccessDeniedException exception) {
         return new Result(false, StatusCode.FORBIDEN,"No perission", exception.getMessage());
+    }
+
+    @ExceptionHandler(ReservationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    Result handleReservationException(ReservationException exception) {
+        return new Result(false, StatusCode.INTERNAL_SERVER_ERREUR, exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

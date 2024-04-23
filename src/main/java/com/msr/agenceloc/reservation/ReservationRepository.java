@@ -19,5 +19,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
   /*  @Query(value = "select COUNT(*) from vehicule as v INNER JOIN agence as a on v.agence_id=a.agence_id WHERE v.is_booked =1;", nativeQuery = true)
     int findAllByIdMatches(Long id);
 */
+    @Query(value ="SELECT SUM(DATEDIFF(date_fin, date_debut) * prix_journalier) as total from reservation;" ,nativeQuery = true)
+    int prixTotalDeReservation();
 
 }

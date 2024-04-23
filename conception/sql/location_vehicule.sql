@@ -154,10 +154,10 @@ CREATE TABLE `scooter` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vehicule`
+-- Table structure for table `voiture`
 --
 
-CREATE TABLE `vehicule` (
+CREATE TABLE `voiture` (
   `id` bigint(20) NOT NULL,
   `couleur` varchar(255) NOT NULL,
   `is_booked` tinyint(1) DEFAULT 0,
@@ -248,9 +248,9 @@ ALTER TABLE `scooter`
   ADD KEY `FK_gsdnhyxkcncd5p2rh5xts1gd8` (`client_user_id`);
 
 --
--- Indexes for table `vehicule`
+-- Indexes for table `voiture`
 --
-ALTER TABLE `vehicule`
+ALTER TABLE `voiture`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_9efwas96pg6kqusqp734vijni` (`client_user_id`);
 
@@ -314,14 +314,14 @@ ALTER TABLE `agence`
 -- Constraints for table `agence_fourni_vehicule`
 --
 ALTER TABLE `agence_fourni_vehicule`
-  ADD CONSTRAINT `FK2nijfhufimtluqj2d1wwh3tfu` FOREIGN KEY (`vehicule_id`) REFERENCES `vehicule` (`id`),
+  ADD CONSTRAINT `FK2nijfhufimtluqj2d1wwh3tfu` FOREIGN KEY (`vehicule_id`) REFERENCES `voiture` (`id`),
   ADD CONSTRAINT `FKbb71t7qyrul43g3v65estag41` FOREIGN KEY (`agence_id`) REFERENCES `agence` (`agence_id`);
 
 --
 -- Constraints for table `client_reserve_vehicule`
 --
 ALTER TABLE `client_reserve_vehicule`
-  ADD CONSTRAINT `FK485g4ltjn8645mwxsr2jlnqhk` FOREIGN KEY (`vehicule_id`) REFERENCES `vehicule` (`id`),
+  ADD CONSTRAINT `FK485g4ltjn8645mwxsr2jlnqhk` FOREIGN KEY (`vehicule_id`) REFERENCES `voiture` (`id`),
   ADD CONSTRAINT `FK83wipqotmbv7tvijvh2efiw9s` FOREIGN KEY (`client_user_id`) REFERENCES `client_user` (`client_user_id`),
   ADD CONSTRAINT `FKo4bjww6sgk8qpfbxxoxrwom8h` FOREIGN KEY (`date_reservation`) REFERENCES `date_reservation` (`date_reservation`);
 
@@ -336,7 +336,7 @@ ALTER TABLE `client_user`
 --
 ALTER TABLE `commentaire`
   ADD CONSTRAINT `FKnjp9x63cll1bqnoil50n3ihvy` FOREIGN KEY (`client_user_id`) REFERENCES `client_user` (`client_user_id`),
-  ADD CONSTRAINT `FKq94p1u0wubwxw3bu6jag5g67p` FOREIGN KEY (`vehicule_id`) REFERENCES `vehicule` (`id`);
+  ADD CONSTRAINT `FKq94p1u0wubwxw3bu6jag5g67p` FOREIGN KEY (`vehicule_id`) REFERENCES `voiture` (`id`);
 
 --
 -- Constraints for table `scooter`
@@ -345,9 +345,9 @@ ALTER TABLE `scooter`
   ADD CONSTRAINT `FK_gsdnhyxkcncd5p2rh5xts1gd8` FOREIGN KEY (`client_user_id`) REFERENCES `client_user` (`client_user_id`);
 
 --
--- Constraints for table `vehicule`
+-- Constraints for table `voiture`
 --
-ALTER TABLE `vehicule`
+ALTER TABLE `voiture`
   ADD CONSTRAINT `FK_9efwas96pg6kqusqp734vijni` FOREIGN KEY (`client_user_id`) REFERENCES `client_user` (`client_user_id`);
 COMMIT;
 

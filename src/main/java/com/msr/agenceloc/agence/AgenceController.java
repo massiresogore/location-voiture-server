@@ -29,6 +29,8 @@ public class AgenceController {
     public Result getAllAgence()
     {
         return new Result(
+
+
                 true,
                 StatusCode.SUCCESS,
                 "Find all success",

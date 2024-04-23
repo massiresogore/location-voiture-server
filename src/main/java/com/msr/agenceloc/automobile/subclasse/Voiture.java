@@ -7,7 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Max;
 
 @Entity
-public class Vehicule extends Automobile {
+public class Voiture extends Automobile {
 
     private int nbRoues;
 
@@ -17,14 +17,14 @@ public class Vehicule extends Automobile {
     private int nbrPorte;
 
 
-    public Vehicule() {
+    public Voiture() {
 
     }
 
-    public Vehicule(Long id, String couleur, int poids, int prixJournalier,
-                    boolean isBooked, int stock,
-                    Agence agence,
-                    int nbRoues, int nbrPorte) {
+    public Voiture(Long id, String couleur, int poids, int prixJournalier,
+                   boolean isBooked, int stock,
+                   Agence agence,
+                   int nbRoues, int nbrPorte) {
         super(id, couleur, poids, prixJournalier, isBooked, stock, agence);
         this.nbRoues = nbRoues;
         this.nbrPorte = nbrPorte;

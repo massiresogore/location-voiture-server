@@ -1,6 +1,6 @@
 package com.msr.agenceloc.automobile.repositories;
 
-import com.msr.agenceloc.automobile.subclasse.Vehicule;
+import com.msr.agenceloc.automobile.subclasse.Voiture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
+public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     @Query(value = "SELECT SUM(`prix_journalier`) FROM vehicule WHERE 1;", nativeQuery = true)
     Optional<Integer> findTotalPrixVehicule();
 

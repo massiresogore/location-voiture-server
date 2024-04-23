@@ -13,6 +13,7 @@ public interface CamionRepository extends JpaRepository<Camion, Long> {
     Optional<Integer> findTotalPrixCamion();
 
 
+
     @Query(value ="SELECT COUNT(*) FROM  camion WHERE is_booked=1;", nativeQuery = true)
     int findAllByReserver(boolean isBooked);
 }

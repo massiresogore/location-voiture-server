@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AgenceDtoToAgenceConverter implements Converter<AgenceDto, Agence> {
+
+
     /**
      * Convert the source object of type {@code S} to target type {@code T}.
      *
@@ -21,8 +23,7 @@ public class AgenceDtoToAgenceConverter implements Converter<AgenceDto, Agence> 
         agence.setNom(source.nom());
         agence.setAdresse(source.adresse());
         agence.setEmail(source.email());
-        agence.setTel(source.tel());
-        //agence.getNombreOfAutomobile();
+        agence.setTel(source.tel());;
         return agence;
     }
 }

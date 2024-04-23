@@ -19,7 +19,7 @@ public record AgenceDto(
                 String tel,
 
                 @NotNull
-                Adresse adresse
-                //int nombreVehicule
+                Adresse adresse,
+                int nombreVehicules
 ) {
 }

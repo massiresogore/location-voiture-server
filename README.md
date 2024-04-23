@@ -72,13 +72,13 @@ futurs clients puissent les voir.
 6. Nombre_porte : minimum 2, maximum 4.✅
 
 ## <ins>Troisième partie - Administration<ins>
-1. Développez un service (CRUD) pour chaque d'entité et rédigez la documentation pour chaque
+1. Développez un service (CRUD) pour chaque d'entité et rédigez la documentation pour chaque  ✅
 méthode. 
-2. Implémentez toutes les fonctionnalités pour les entités USER et AGENCE, incluant l'ajout,
+2. Implémentez toutes les fonctionnalités pour les entités USER et AGENCE, incluant l'ajout, ✅
 la suppression, la mise à jour, et la consultation.
-3. Créez une page présentant un tableau de tous les utilisateurs (USER) avec des options pour supprimer
-et modifier. Appliquez le même principe pour l’entité AGENCE.
-4. Notez que pour les USER, les modifications se limitent uniquement au prénom, au nom et au rôle.
+3. Créez une page présentant un tableau de tous les utilisateurs (USER) avec des options pour supprimer  ✅
+et modifier. Appliquez le même principe pour l’entité AGENCE.  ✅
+4. Notez que pour les USER, les modifications se limitent uniquement au prénom, au nom et au rôle.  ✅
 
 - choix de conception
   - je préfère utiliser l'approche d'une classe abstraite avec 
@@ -90,10 +90,10 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.
     //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
 ## Cinquième partie – Administration – Dashboard – Pourcentage
-1. Sur la même page « Dashboard », ajouter la répartition en pourcentage pour les voitures, camions et deux roues.
-   Ex : voiture 55%, camion 25, deux roues 20%
-2. Effectuer la même action en répartissant les pourcentages entre les différentes agences
-   Ex : agence de Paris 30%, agence de Nantes 70%
+1. Sur la même page « Dashboard », ajouter la répartition en pourcentage pour les voitures, camions et deux roues. ✅
+   Ex : voiture 55%, camion 25, deux roues 20%   ✅
+2. Effectuer la même action en répartissant les pourcentages entre les différentes agences  ✅
+   Ex : agence de Paris 30%, agence de Nantes 70%  ✅
 
 
 

@@ -133,7 +133,7 @@ public class AgenceService {
 
         //total reservation
         long totalReservation= this.automobilRepository.findAllByIsBooked(true).size();
-        long totalAutomobile = this.agenceRepository.count();
+        long totalAutomobile = this.automobilRepository.count();
 
 
         return  new AgenceInformationDto(

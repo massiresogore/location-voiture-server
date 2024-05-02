@@ -63,8 +63,13 @@ public class AutomobileController {
 
 
     @GetMapping
-    public Result getAllAuto()
+    public Result getAllAuto(@RequestParam(name = "status", required = false) String status)
     {
+        if(status != null){
+            boolean isBook = status.equals("1");
+            return new Result(true,StatusCode.SUCCESS,"All auto",
+                    this.automobilRepository.findAllByIsBooked(isBook));
+        }
 
         return new Result(true,StatusCode.SUCCESS,"All auto",
                 this.automobilRepository.findAll());

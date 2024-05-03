@@ -80,6 +80,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                        .requestMatchers(HttpMethod.GET,"/m").permitAll()
                         .requestMatchers(HttpMethod.GET,this.baseUrl+"/automobiles/**").permitAll()
                         .requestMatchers(HttpMethod.POST,this.baseUrl+"/automobiles/**").permitAll()
                         .requestMatchers(HttpMethod.GET,this.baseUrl+"/agences/**").permitAll()

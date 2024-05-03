@@ -115,3 +115,17 @@ et modifier. Appliquez le même principe pour l’entité AGENCE.  ✅
     select COUNT(*) from reservation as r JOIN voiture as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=2;
 
 select COUNT(*) from reservation as r JOIN voiture as v on r.automobile_id = v.id join `agence` as a on a.agence_id=v.agence_id WHERE a.agence_id=1;
+
+# PROGRAMME du projet
+1. prérequis
+2. planing
+3. design
+4. implementation et testing
+5. deployment
+
+
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+  <version>2.2.0</version>
+</dependency>

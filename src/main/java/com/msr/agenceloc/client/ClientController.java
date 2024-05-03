@@ -6,6 +6,13 @@ import com.msr.agenceloc.client.converter.ClientUserToUserDtoConverter;
 import com.msr.agenceloc.client.dto.ClientUserDto;
 import com.msr.agenceloc.system.Result;
 import com.msr.agenceloc.system.StatusCode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +38,18 @@ public class ClientController {
         return new Result(true, StatusCode.SUCCESS,"User create success",this.clientUserService.save(clientUser));
     }
 
+    @Tag(name = "get", description = "GET methods pour user APIs")
+
     @GetMapping("/{userId}")
-    public Result findUserById(@PathVariable Long userId)
+    public Result findUserById(@Parameter(
+            description = "ID of clientUser to be retrieved",
+            required = true)@PathVariable Long userId)
     {
         return new Result(true,StatusCode.SUCCESS,"Find user success",this.clientUserToUserDtoConverter.convert(this.clientUserService.findById(userId)));
     }
 
+    @Operation(summary = "Met à jour user",
+            description = "Update an existing employee. The response is updated Employee object with id, first name, and last name.")
     @PutMapping("/{userId}")
     public Result updateUser(@PathVariable("userId") Long userId,@Valid @RequestBody ClientUserDto clientUserDto)
     {
@@ -64,6 +77,11 @@ public class ClientController {
         return new Result(true,StatusCode.SUCCESS,"Find all user success",clientUserDtoList);
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ClientUser.class)) }),
+            @ApiResponse(responseCode = "404", description = "ClientUser not found",
+                    content = @Content) })
     @DeleteMapping("/{userId}")
     public Result deleteUser(@PathVariable Long userId)
     {

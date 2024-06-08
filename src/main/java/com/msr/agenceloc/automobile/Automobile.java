@@ -37,7 +37,7 @@ public abstract   class Automobile {
 
     @ManyToOne(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+                    CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(nullable = false, name = "agence_id")
     private Agence agence;
 
